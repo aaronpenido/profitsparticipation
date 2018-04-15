@@ -1,23 +1,20 @@
-import exceptions.InvalidAnnualPerformanceValue;
-import exceptions.InvalidJobTitleException;
+import exceptions.*;
 import models.*;
 import utils.ConsoleManager;
-import utils.IOManager;
+import utils.ProfitParticipationIOManager;
 
 public class Main {
 
     public static void main(String[] args)  {
 
-        IOManager ioManager = new ConsoleManager();
+        ProfitParticipationIOManager profitParticipationIOManager = new ProfitParticipationIOManager(new ConsoleManager());
 
         try {
 
-            final int numberOfEmployees = ioManager.readNumberOfEmployees();
-            final double profitMargin = ioManager.readProfitMargin();
-            final JobTitle jobTitle = ioManager.readJobTitle();
-            final int annualPerformanceValue = ioManager.readAnnualPerformanceValue();
-
-            throwExceptionIfAnnualPerformanceValueIsInvalid(annualPerformanceValue);
+            final int numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
+            final double profitMargin = profitParticipationIOManager.readProfitMarginValue();
+            final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
+            final int annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
 
             Employee employee = createEmployee(jobTitle, annualPerformanceValue);
 
@@ -26,21 +23,10 @@ public class Main {
 
             final double profitParticipationValue = profitParticipationCalculator.calculate();
 
-            ioManager.writeProfitParticipationValue(profitParticipationValue);
+            profitParticipationIOManager.writeProfitParticipationValue(profitParticipationValue);
 
-        } catch (NumberFormatException numberFormatException) {
-            ioManager.writeError(numberFormatException.getMessage());
-        } catch (InvalidJobTitleException invalidJobTitleException) {
-            ioManager.writeError(invalidJobTitleException.getMessage());
-        } catch (Exception exception) {
-            ioManager.writeError(exception.getMessage());
-        }
-    }
-
-    private static void throwExceptionIfAnnualPerformanceValueIsInvalid(int annualPerformanceValue) throws Exception {
-
-        if (annualPerformanceValue < 1 || annualPerformanceValue > 5) {
-            throw new InvalidAnnualPerformanceValue();
+        } catch (ProfitParticipationException exception) {
+            profitParticipationIOManager.writeErrorFromProfitParticipationException(exception);
         }
     }
 
