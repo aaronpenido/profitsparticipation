@@ -7,19 +7,16 @@ public class Main {
 
     public static void main(String[] args)  {
 
-        ProfitParticipationIOManager profitParticipationIOManager = new ProfitParticipationIOManager(new ConsoleManager());
+        ProfitParticipationIOManager profitParticipationIOManager =
+                new ProfitParticipationIOManager(new ConsoleManager());
 
         try {
 
-            final int numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
-            final double profitMargin = profitParticipationIOManager.readProfitMarginValue();
-            final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
-            final int annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
-
-            Employee employee = createEmployee(jobTitle, annualPerformanceValue);
+            Company company = instantiateCompanyFromInputValues(profitParticipationIOManager);
+            Employee employee = instantiateEmployeeFromInputValues(profitParticipationIOManager);
 
             ProfitParticipationCalculator profitParticipationCalculator =
-                    new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                    new ProfitParticipationCalculator(company, employee);
 
             final double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -30,7 +27,21 @@ public class Main {
         }
     }
 
-    private static Employee createEmployee(final JobTitle jobTitle, final int annualPerformanceValue) throws InvalidJobTitleException {
+    private static Company instantiateCompanyFromInputValues(ProfitParticipationIOManager profitParticipationIOManager)
+            throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
+
+        final int numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
+        final double profitMargin = profitParticipationIOManager.readProfitMarginValue();
+
+        return new Company(numberOfEmployees, profitMargin);
+    }
+
+    private static Employee instantiateEmployeeFromInputValues(ProfitParticipationIOManager profitParticipationIOManager)
+            throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
+
+        final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
+        final int annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
+
         return Employee.employeeFromJobTitle(jobTitle, annualPerformanceValue);
     }
 }

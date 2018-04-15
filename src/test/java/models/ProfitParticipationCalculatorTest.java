@@ -5,7 +5,6 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.doubleThat;
 import static org.mockito.Mockito.mock;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -16,9 +15,10 @@ public class ProfitParticipationCalculatorTest {
         final int numberOfEmployees = 10;
         final double profitMargin = 99999;
         final Employee employee = mock(Employee.class);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -30,9 +30,10 @@ public class ProfitParticipationCalculatorTest {
         final int numberOfEmployees = 10;
         final double profitMargin = 100000;
         final Employee employee = mock(Employee.class);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -45,9 +46,10 @@ public class ProfitParticipationCalculatorTest {
         final double profitMargin = 100001;
         final int employeesAnnualPerformanceValue = 1;
         final Employee employee = new Trainee(employeesAnnualPerformanceValue);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -61,9 +63,10 @@ public class ProfitParticipationCalculatorTest {
         final int employeesAnnualPerformanceValue = 1;
         final double expectedEmployeesProfitParticipationValue = 8000;
         final Employee employee = new Trainee(employeesAnnualPerformanceValue);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -77,9 +80,10 @@ public class ProfitParticipationCalculatorTest {
         final int employeesAnnualPerformanceValue = 1;
         final double expectedEmployeesProfitParticipationValue = 16000;
         final Employee employee = new Analyst(employeesAnnualPerformanceValue);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
@@ -93,9 +97,10 @@ public class ProfitParticipationCalculatorTest {
         final int employeesAnnualPerformanceValue = 1;
         final double expectedEmployeesProfitParticipationValue = 24000;
         final Employee employee = new Manager(employeesAnnualPerformanceValue);
+        final Company company = new Company(numberOfEmployees, profitMargin);
 
         ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(numberOfEmployees, profitMargin, employee);
+                new ProfitParticipationCalculator(company, employee);
 
         double profitParticipationValue = profitParticipationCalculator.calculate();
 
