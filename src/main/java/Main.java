@@ -1,6 +1,8 @@
 import exceptions.*;
 import models.*;
+import utils.CompanyBuilder;
 import utils.ConsoleManager;
+import utils.EmployeeBuilder;
 import utils.ProfitParticipationIOManager;
 
 public class Main {
@@ -15,10 +17,7 @@ public class Main {
             Company company = instantiateCompanyFromInputValues(profitParticipationIOManager);
             Employee employee = instantiateEmployeeFromInputValues(profitParticipationIOManager);
 
-            ProfitParticipationCalculator profitParticipationCalculator =
-                    new ProfitParticipationCalculator(company, employee);
-
-            final double profitParticipationValue = profitParticipationCalculator.calculate();
+            double profitParticipationValue = calculateProfitParticipationValue(company, employee);
 
             profitParticipationIOManager.writeProfitParticipationValue(profitParticipationValue);
 
@@ -30,18 +29,24 @@ public class Main {
     private static Company instantiateCompanyFromInputValues(ProfitParticipationIOManager profitParticipationIOManager)
             throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
 
-        final int numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
-        final double profitMargin = profitParticipationIOManager.readProfitMarginValue();
+        CompanyBuilder companyBuilder = new CompanyBuilder(profitParticipationIOManager);
 
-        return new Company(numberOfEmployees, profitMargin);
+        return companyBuilder.build();
     }
 
     private static Employee instantiateEmployeeFromInputValues(ProfitParticipationIOManager profitParticipationIOManager)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
-        final int annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
+        EmployeeBuilder employeeBuilder = new EmployeeBuilder(profitParticipationIOManager);
 
-        return Employee.employeeFromJobTitle(jobTitle, annualPerformanceValue);
+        return employeeBuilder.build();
+    }
+
+    private static double calculateProfitParticipationValue(Company company, Employee employee) {
+
+        ProfitParticipationCalculator profitParticipationCalculator =
+                new ProfitParticipationCalculator(company, employee);
+
+        return profitParticipationCalculator.calculate();
     }
 }
