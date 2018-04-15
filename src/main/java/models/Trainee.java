@@ -7,7 +7,7 @@ public class Trainee extends Employee {
     }
 
     @Override
-    public int jobTitleMultiplicator() {
+    public int jobTitleMultiplier() {
         return 1;
     }
 }

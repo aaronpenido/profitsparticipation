@@ -19,10 +19,10 @@ public class ProfitParticipationCalculator {
         if (profitMarginIsGreaterThanProfitFactorToAllowParticipation()) {
             
             final int employeesPerformanceValue = employee.getAnnualPerformanceValue();
-            final int jobTitleMultiplicator = employee.jobTitleMultiplicator();
+            final int jobTitleMultiplier = employee.jobTitleMultiplier();
             final double calculationFactor = (profitMargin * 0.4 / numberOfEmployees);
 
-            profitParticipationValue = employeesPerformanceValue * jobTitleMultiplicator * calculationFactor;
+            profitParticipationValue = employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
         }
 
         return profitParticipationValue;

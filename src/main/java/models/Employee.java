@@ -10,7 +10,7 @@ public abstract class Employee {
         this.annualPerformanceValue = annualPerformanceValue;
     }
 
-    abstract int jobTitleMultiplicator();
+    abstract int jobTitleMultiplier();
 
     public int getAnnualPerformanceValue() {
         return annualPerformanceValue;
