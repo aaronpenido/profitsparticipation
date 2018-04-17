@@ -6,7 +6,7 @@ public class ProfitParticipationCalculator {
     private double profitMargin;
     private Employee employee;
 
-    public ProfitParticipationCalculator(Company company, final Employee employee) {
+    public ProfitParticipationCalculator(Company company, Employee employee) {
         this.numberOfEmployees = company.getNumberOfEmployees();
         this.profitMargin = company.getProfitMargin();
         this.employee = employee;
