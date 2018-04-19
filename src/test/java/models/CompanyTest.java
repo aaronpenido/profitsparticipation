@@ -1,14 +1,11 @@
 package models;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-@RunWith(MockitoJUnitRunner.class)
-public class ProfitParticipationCalculatorTest {
+public class CompanyTest {
 
     @Test
     public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsLessThanTenThousandTimesEmployeesNumber() {
@@ -17,10 +14,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = mock(Employee.class);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isEqualTo(0);
     }
@@ -32,10 +26,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = mock(Employee.class);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isEqualTo(0);
     }
@@ -48,10 +39,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = new Trainee(employeesAnnualPerformanceValue);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isNotEqualTo(0);
     }
@@ -65,10 +53,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = new Trainee(employeesAnnualPerformanceValue);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
     }
@@ -82,10 +67,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = new Analyst(employeesAnnualPerformanceValue);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
     }
@@ -99,10 +81,7 @@ public class ProfitParticipationCalculatorTest {
         final Employee employee = new Manager(employeesAnnualPerformanceValue);
         final Company company = new Company(numberOfEmployees, profitMargin);
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        double profitParticipationValue = profitParticipationCalculator.calculate();
+        double profitParticipationValue = company.calculateProfitMargin(employee);
 
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
     }

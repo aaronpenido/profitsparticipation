@@ -10,11 +10,25 @@ public class Company {
         this.profitMargin = profitMargin;
     }
 
-    public int getNumberOfEmployees() {
-        return numberOfEmployees;
+    public double calculateProfitMargin(Employee employee) {
+
+        double profitParticipationValue = 0;
+
+        if (profitMarginIsGreaterThanProfitFactorToAllowParticipation()) {
+
+            final int employeesPerformanceValue = employee.getAnnualPerformanceValue();
+            final int jobTitleMultiplier = employee.jobTitleMultiplier();
+            final double calculationFactor = (profitMargin * 0.4 / numberOfEmployees);
+
+            profitParticipationValue = employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
+        }
+
+        return profitParticipationValue;
     }
 
-    public double getProfitMargin() {
-        return profitMargin;
+    private boolean profitMarginIsGreaterThanProfitFactorToAllowParticipation() {
+        final int profitFactor = 10000 * numberOfEmployees;
+
+        return profitMargin > profitFactor;
     }
 }

@@ -17,7 +17,7 @@ public class Main {
             Company company = instantiateCompanyFromInputValues(profitParticipationIOManager);
             Employee employee = instantiateEmployeeFromInputValues(profitParticipationIOManager);
 
-            double profitParticipationValue = calculateProfitParticipationValue(company, employee);
+            double profitParticipationValue = company.calculateProfitMargin(employee);
 
             profitParticipationIOManager.writeProfitParticipationValue(profitParticipationValue);
 
@@ -40,13 +40,5 @@ public class Main {
         EmployeeBuilder employeeBuilder = new EmployeeBuilder(profitParticipationIOManager);
 
         return employeeBuilder.build();
-    }
-
-    private static double calculateProfitParticipationValue(Company company, Employee employee) {
-
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ProfitParticipationCalculator(company, employee);
-
-        return profitParticipationCalculator.calculate();
     }
 }
