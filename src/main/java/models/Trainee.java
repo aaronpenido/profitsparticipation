@@ -1,12 +1,12 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import utils.ProfitParticipationIOManager;
+import utils.IOManager;
 
 public class Trainee extends Employee {
 
-    public Trainee(ProfitParticipationIOManager profitParticipationIOManager) throws InvalidAnnualPerformanceValueException {
-        super(profitParticipationIOManager);
+    public Trainee(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
+        super(ioManager);
     }
 
     @Override

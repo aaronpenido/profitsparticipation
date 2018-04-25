@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import utils.IOManager;
-import utils.ProfitParticipationIOManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -60,13 +59,12 @@ public class CompanyTest {
 
         final String numberOfEmployees = "10";
         final String profitMargin = "100001";
-        final int employeesAnnualPerformanceValue = 1;
+        final String employeesAnnualPerformanceValue = "1";
 
-        ProfitParticipationIOManager profitParticipationIOManager = mock(ProfitParticipationIOManager.class);
+        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
 
-        when(profitParticipationIOManager.readAnnualPerformanceValue()).thenReturn(employeesAnnualPerformanceValue);
 
-        final Employee employee = new Trainee(profitParticipationIOManager);
+        final Employee employee = new Trainee(ioManager);
 
         when(ioManager.read()).thenReturn(numberOfEmployees).thenReturn(profitMargin);
 
@@ -83,14 +81,12 @@ public class CompanyTest {
 
         final String numberOfEmployees = "10";
         final String profitMargin = "200000";
-        final int employeesAnnualPerformanceValue = 1;
+        final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 8000;
 
-        ProfitParticipationIOManager profitParticipationIOManager = mock(ProfitParticipationIOManager.class);
+        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
 
-        when(profitParticipationIOManager.readAnnualPerformanceValue()).thenReturn(employeesAnnualPerformanceValue);
-
-        final Employee employee = new Trainee(profitParticipationIOManager);
+        final Employee employee = new Trainee(ioManager);
 
         when(ioManager.read()).thenReturn(numberOfEmployees).thenReturn(profitMargin);
 
@@ -107,14 +103,12 @@ public class CompanyTest {
 
         final String numberOfEmployees = "10";
         final String profitMargin = "200000";
-        final int employeesAnnualPerformanceValue = 1;
+        final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 16000;
 
-        ProfitParticipationIOManager profitParticipationIOManager = mock(ProfitParticipationIOManager.class);
+        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
 
-        when(profitParticipationIOManager.readAnnualPerformanceValue()).thenReturn(employeesAnnualPerformanceValue);
-
-        final Employee employee = new Analyst(profitParticipationIOManager);
+        final Employee employee = new Analyst(ioManager);
 
         when(ioManager.read()).thenReturn(numberOfEmployees).thenReturn(profitMargin);
 
@@ -131,14 +125,12 @@ public class CompanyTest {
 
         final String numberOfEmployees = "10";
         final String profitMargin = "200000";
-        final int employeesAnnualPerformanceValue = 1;
+        final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 24000;
 
-        ProfitParticipationIOManager profitParticipationIOManager = mock(ProfitParticipationIOManager.class);
+        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
 
-        when(profitParticipationIOManager.readAnnualPerformanceValue()).thenReturn(employeesAnnualPerformanceValue);
-
-        final Employee employee = new Manager(profitParticipationIOManager);
+        final Employee employee = new Manager(ioManager);
 
         when(ioManager.read()).thenReturn(numberOfEmployees).thenReturn(profitMargin);
 

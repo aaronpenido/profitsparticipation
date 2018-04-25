@@ -3,7 +3,6 @@ import models.*;
 import utils.ConsoleManager;
 import utils.EmployeeBuilder;
 import utils.IOManager;
-import utils.ProfitParticipationIOManager;
 
 public class Main {
 
@@ -11,28 +10,34 @@ public class Main {
 
         IOManager ioManager = new ConsoleManager();
 
-        ProfitParticipationIOManager profitParticipationIOManager =
-                new ProfitParticipationIOManager(ioManager);
-
         try {
 
             Company company = new Company(ioManager);
-            Employee employee = instantiateEmployeeFromInputValues(profitParticipationIOManager);
+            Employee employee = instantiateEmployeeFromInputValues(ioManager);
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
-            profitParticipationIOManager.writeProfitParticipationValue(profitParticipationValue);
+            writeProfitParticipationValue(ioManager, profitParticipationValue);
 
         } catch (ProfitParticipationException exception) {
-            profitParticipationIOManager.writeErrorFromProfitParticipationException(exception);
+            writeErrorFromProfitParticipationException(ioManager, exception);
         }
     }
 
-    private static Employee instantiateEmployeeFromInputValues(ProfitParticipationIOManager profitParticipationIOManager)
+    private static Employee instantiateEmployeeFromInputValues(IOManager ioManager)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        EmployeeBuilder employeeBuilder = new EmployeeBuilder(profitParticipationIOManager);
+        EmployeeBuilder employeeBuilder = new EmployeeBuilder(ioManager);
 
         return employeeBuilder.build();
+    }
+
+    private static void writeProfitParticipationValue(IOManager ioManager, double profitParticipationValue) {
+        ioManager.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
+    }
+
+    private static void writeErrorFromProfitParticipationException(IOManager ioManager,
+                                                                   ProfitParticipationException profitParticipationException) {
+        ioManager.writeError(profitParticipationException.getMessage());
     }
 }

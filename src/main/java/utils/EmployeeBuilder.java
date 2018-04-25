@@ -6,30 +6,29 @@ import models.*;
 
 public class EmployeeBuilder {
 
-    private ProfitParticipationIOManager profitParticipationIOManager;
+    private IOManager ioManager;
 
-    public EmployeeBuilder(ProfitParticipationIOManager profitParticipationIOManager) {
-        this.profitParticipationIOManager = profitParticipationIOManager;
+    public EmployeeBuilder(IOManager ioManager) {
+        this.ioManager = ioManager;
     }
 
     public Employee build() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
+        final JobTitle jobTitle = null;//profitParticipationIOManager.readJobTitle();
 
-        return employeeFromJobTitle(jobTitle, profitParticipationIOManager);
+        return employeeFromJobTitle(jobTitle);
     }
 
-    private Employee employeeFromJobTitle(final JobTitle jobTitle,
-                                          final ProfitParticipationIOManager profitParticipationIOManager)
+    private Employee employeeFromJobTitle(final JobTitle jobTitle)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
         switch (jobTitle) {
             case ANALYST:
-                return new Analyst(profitParticipationIOManager);
+                return new Analyst(ioManager);
             case MANAGER:
-                return new Manager(profitParticipationIOManager);
+                return new Manager(ioManager);
             case TRAINEE:
-                return new Trainee(profitParticipationIOManager);
+                return new Trainee(ioManager);
             default:
                 throw new InvalidJobTitleException();
         }
