@@ -1,34 +1,42 @@
 package models;
 
+import exceptions.InvalidNumberOfEmployeesException;
+import exceptions.InvalidProfitMarginValueException;
+import utils.ProfitParticipationIOManager;
+
 public class Company {
 
     private int numberOfEmployees;
     private double profitMargin;
 
-    public Company(int numberOfEmployees, double profitMargin) {
-        this.numberOfEmployees = numberOfEmployees;
-        this.profitMargin = profitMargin;
+    public Company(ProfitParticipationIOManager profitParticipationIOManager)
+            throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
+
+        this.numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
+        this.profitMargin = profitParticipationIOManager.readProfitMarginValue();
     }
 
-    public double calculateProfitMargin(Employee employee) {
+    public double calculateProfitParticipationValue(Employee employee) {
 
-        double profitParticipationValue = 0;
-
-        if (profitMarginIsGreaterThanProfitFactorToAllowParticipation()) {
+        if (allowParticipation()) {
 
             final int employeesPerformanceValue = employee.getAnnualPerformanceValue();
             final int jobTitleMultiplier = employee.jobTitleMultiplier();
-            final double calculationFactor = (profitMargin * 0.4 / numberOfEmployees);
+            final double calculationFactor = getCalculationFactor();
 
-            profitParticipationValue = employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
+            return employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
         }
 
-        return profitParticipationValue;
+        return 0;
     }
 
-    private boolean profitMarginIsGreaterThanProfitFactorToAllowParticipation() {
+    private boolean allowParticipation() {
         final int profitFactor = 10000 * numberOfEmployees;
 
         return profitMargin > profitFactor;
+    }
+
+    private double getCalculationFactor() {
+        return profitMargin * 0.4 / numberOfEmployees;
     }
 }

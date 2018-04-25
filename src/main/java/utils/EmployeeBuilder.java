@@ -15,22 +15,21 @@ public class EmployeeBuilder {
     public Employee build() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
         final JobTitle jobTitle = profitParticipationIOManager.readJobTitle();
-        final int annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
 
-        return employeeFromJobTitle(jobTitle, annualPerformanceValue);
+        return employeeFromJobTitle(jobTitle, profitParticipationIOManager);
     }
 
-    private Employee employeeFromJobTitle(
-            final JobTitle jobTitle,
-            final int annualPerformanceValue) throws InvalidJobTitleException {
+    private Employee employeeFromJobTitle(final JobTitle jobTitle,
+                                          final ProfitParticipationIOManager profitParticipationIOManager)
+            throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
         switch (jobTitle) {
             case ANALYST:
-                return new Analyst(annualPerformanceValue);
+                return new Analyst(profitParticipationIOManager);
             case MANAGER:
-                return new Manager(annualPerformanceValue);
+                return new Manager(profitParticipationIOManager);
             case TRAINEE:
-                return new Trainee(annualPerformanceValue);
+                return new Trainee(profitParticipationIOManager);
             default:
                 throw new InvalidJobTitleException();
         }

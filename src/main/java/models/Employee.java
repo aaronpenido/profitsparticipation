@@ -1,11 +1,14 @@
 package models;
 
+import exceptions.InvalidAnnualPerformanceValueException;
+import utils.ProfitParticipationIOManager;
+
 public abstract class Employee {
 
     private int annualPerformanceValue;
 
-    public Employee(final int annualPerformanceValue) {
-        this.annualPerformanceValue = annualPerformanceValue;
+    public Employee(ProfitParticipationIOManager profitParticipationIOManager) throws InvalidAnnualPerformanceValueException {
+        this.annualPerformanceValue = profitParticipationIOManager.readAnnualPerformanceValue();
     }
 
     abstract int jobTitleMultiplier();
