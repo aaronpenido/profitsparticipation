@@ -1,5 +1,6 @@
 import exceptions.*;
 import models.*;
+import utils.CompanyBuilder;
 import utils.ConsoleManager;
 import utils.EmployeeBuilder;
 import utils.IOManager;
@@ -12,7 +13,7 @@ public class Main {
 
         try {
 
-            Company company = new Company(ioManager);
+            Company company = instantiateCompanyFromInputValues(ioManager);
             Employee employee = instantiateEmployeeFromInputValues(ioManager);
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
@@ -22,6 +23,14 @@ public class Main {
         } catch (ProfitParticipationException exception) {
             writeErrorFromProfitParticipationException(ioManager, exception);
         }
+    }
+
+    private static Company instantiateCompanyFromInputValues(IOManager ioManager)
+            throws InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
+
+        CompanyBuilder companyBuilder = new CompanyBuilder(ioManager);
+
+        return companyBuilder.build();
     }
 
     private static Employee instantiateEmployeeFromInputValues(IOManager ioManager)

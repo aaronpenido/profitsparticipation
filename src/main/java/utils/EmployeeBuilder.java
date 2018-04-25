@@ -14,7 +14,8 @@ public class EmployeeBuilder {
 
     public Employee build() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        final JobTitle jobTitle = null;//profitParticipationIOManager.readJobTitle();
+        writeJobTitleMessage();
+        JobTitle jobTitle = readJobTitle();
 
         return employeeFromJobTitle(jobTitle);
     }
@@ -32,5 +33,13 @@ public class EmployeeBuilder {
             default:
                 throw new InvalidJobTitleException();
         }
+    }
+
+    private JobTitle readJobTitle() throws InvalidJobTitleException {
+        return JobTitle.jobTitleFromString(ioManager.read());
+    }
+
+    private void writeJobTitleMessage() {
+        ioManager.write("Please inform the job title:");
     }
 }
