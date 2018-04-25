@@ -2,18 +2,46 @@ package models;
 
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
-import utils.ProfitParticipationIOManager;
+import utils.IOManager;
 
 public class Company {
 
+    private IOManager ioManager;
     private int numberOfEmployees;
     private double profitMargin;
 
-    public Company(ProfitParticipationIOManager profitParticipationIOManager)
-            throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
+    public Company(IOManager ioManager) throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
+        this.ioManager = ioManager;
 
-        this.numberOfEmployees = profitParticipationIOManager.readNumberOfEmployees();
-        this.profitMargin = profitParticipationIOManager.readProfitMarginValue();
+        writeNumberOfEmployeesMessage();
+        readNumberOfEmployees();
+
+        writeProfitMarginMessage();
+        readProfitMarginValue();
+    }
+
+    private void writeNumberOfEmployeesMessage() {
+        ioManager.write("Please inform the number of employees:");
+    }
+
+    private void readNumberOfEmployees() throws InvalidNumberOfEmployeesException {
+        try {
+            this.numberOfEmployees = Integer.parseInt(ioManager.read());
+        } catch (NumberFormatException numberFormatException) {
+            throw new InvalidNumberOfEmployeesException();
+        }
+    }
+
+    private void writeProfitMarginMessage() {
+        ioManager.write("Please inform the profit margin value:");
+    }
+
+    private void readProfitMarginValue() throws InvalidProfitMarginValueException {
+        try {
+            this.profitMargin = Double.parseDouble(ioManager.read());
+        } catch (NumberFormatException numberFormatException) {
+            throw new InvalidProfitMarginValueException();
+        }
     }
 
     public double calculateProfitParticipationValue(Employee employee) {
