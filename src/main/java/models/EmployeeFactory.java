@@ -1,18 +1,19 @@
-package utils;
+package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidJobTitleException;
-import models.*;
+import models.enums.JobTitle;
+import models.io.IOManager;
 
-public class EmployeeBuilder {
+public class EmployeeFactory {
 
     private IOManager ioManager;
 
-    public EmployeeBuilder(IOManager ioManager) {
+    public EmployeeFactory(IOManager ioManager) {
         this.ioManager = ioManager;
     }
 
-    public Employee build() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
+    public Employee getEmployee() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
         writeJobTitleMessage();
         JobTitle jobTitle = readJobTitle();
@@ -36,7 +37,16 @@ public class EmployeeBuilder {
     }
 
     private JobTitle readJobTitle() throws InvalidJobTitleException {
-        return JobTitle.jobTitleFromString(ioManager.read());
+        return jobTitleFromString(ioManager.read());
+    }
+
+    private JobTitle jobTitleFromString(String jobTitleString) throws InvalidJobTitleException {
+
+        try {
+            return JobTitle.valueOf(jobTitleString.toUpperCase());
+        } catch (IllegalArgumentException illegalArgumentException) {
+            throw new InvalidJobTitleException();
+        }
     }
 
     private void writeJobTitleMessage() {

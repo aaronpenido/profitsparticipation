@@ -1,8 +1,8 @@
 import exceptions.*;
 import models.*;
-import utils.ConsoleManager;
-import utils.EmployeeBuilder;
-import utils.IOManager;
+import models.io.ConsoleManager;
+import models.EmployeeFactory;
+import models.io.IOManager;
 
 public class Main {
 
@@ -27,9 +27,9 @@ public class Main {
     private static Employee instantiateEmployeeFromInputValues(IOManager ioManager)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        EmployeeBuilder employeeBuilder = new EmployeeBuilder(ioManager);
+        EmployeeFactory employeeFactory = new EmployeeFactory(ioManager);
 
-        return employeeBuilder.build();
+        return employeeFactory.getEmployee();
     }
 
     private static void writeProfitParticipationValue(IOManager ioManager, double profitParticipationValue) {

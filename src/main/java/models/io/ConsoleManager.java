@@ -1,4 +1,4 @@
-package utils;
+package models.io;
 
 import java.util.Scanner;
 

@@ -2,7 +2,7 @@ package models;
 
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
-import utils.IOManager;
+import models.io.IOManager;
 
 public class Company {
 

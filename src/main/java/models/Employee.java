@@ -1,14 +1,14 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import utils.IOManager;
+import models.io.IOManager;
 
 public abstract class Employee {
 
     private final IOManager ioManager;
     private int annualPerformanceValue;
 
-    public Employee(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
+    Employee(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
 
         try {
             this.ioManager = ioManager;

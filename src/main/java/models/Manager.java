@@ -1,11 +1,11 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import utils.IOManager;
+import models.io.IOManager;
 
 public class Manager extends Employee {
 
-    public Manager(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
+    Manager(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
         super(ioManager);
     }
 
