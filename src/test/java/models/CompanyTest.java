@@ -1,6 +1,8 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
+import exceptions.InvalidNumberOfEmployeesException;
+import exceptions.InvalidProfitMarginValueException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,13 +20,16 @@ public class CompanyTest {
     private IOManager ioManager;
 
     @Test
-    public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsLessThanTenThousandTimesEmployeesNumber() {
+    public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsLessThanTenThousandTimesEmployeesNumber()
+            throws InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
-        final double profitMargin = 99999;
+        final int profitMargin = 99999;
         final Employee employee = mock(Employee.class);
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -32,13 +37,16 @@ public class CompanyTest {
     }
 
     @Test
-    public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsEqualToTenThousandTimesEmployeesNumber() {
+    public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsEqualToTenThousandTimesEmployeesNumber()
+            throws InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 100000;
         final Employee employee = mock(Employee.class);
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -47,13 +55,15 @@ public class CompanyTest {
 
     @Test
     public void profitParticipationValueIsDifferentFromZeroWhenProfitMarginIsMoreThanTenThousandTimesEmployeesNumber()
-            throws InvalidAnnualPerformanceValueException {
+            throws InvalidAnnualPerformanceValueException, InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 100001;
         final String employeesAnnualPerformanceValue = "1";
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
         final Employee employee = new Trainee(ioManager);
@@ -64,14 +74,17 @@ public class CompanyTest {
     }
 
     @Test
-    public void traineesProfitParticipationValue() throws InvalidAnnualPerformanceValueException {
+    public void traineesProfitParticipationValue()
+            throws InvalidAnnualPerformanceValueException, InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 200000;
         final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 8000;
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
         final Employee employee = new Trainee(ioManager);
@@ -82,14 +95,17 @@ public class CompanyTest {
     }
 
     @Test
-    public void analystsProfitParticipationValue() throws InvalidAnnualPerformanceValueException {
+    public void analystsProfitParticipationValue()
+            throws InvalidAnnualPerformanceValueException, InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 200000;
         final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 16000;
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
         final Employee employee = new Analyst(ioManager);
@@ -99,14 +115,17 @@ public class CompanyTest {
     }
 
     @Test
-    public void managersProfitParticipationValue() throws InvalidAnnualPerformanceValueException {
+    public void managersProfitParticipationValue()
+            throws InvalidAnnualPerformanceValueException, InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 200000;
         final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 24000;
 
-        final Company company = new Company(numberOfEmployees, profitMargin);
+        when(ioManager.read()).thenReturn(String.valueOf(numberOfEmployees)).thenReturn(String.valueOf(profitMargin));
+
+        final Company company = new Company(ioManager);
 
         when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
         final Employee employee = new Manager(ioManager);
