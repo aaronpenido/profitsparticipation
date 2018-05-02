@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import models.io.IOManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -198,6 +199,7 @@ public class CompanyTest {
 
         final int numberOfEmployees = 10;
         final double profitMargin = 200000;
+
         final String employeesAnnualPerformanceValue = "1";
         final String isInternAllowedToParticipate = "no";
 
@@ -216,5 +218,39 @@ public class CompanyTest {
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
+    }
+
+    @Test
+    public void throwInvalidNumberOfEmployeesExceptionWhenNumberOfEmployeesIsInvalid() {
+        when(ioManager.read()).thenReturn("invalidNumberOfEmployees");
+
+        assertThatThrownBy(() -> new Company(ioManager))
+                .isInstanceOf(InvalidNumberOfEmployeesException.class);
+    }
+
+    @Test
+    public void throwInvalidProfitMarginValueExceptionWhenNumberOfEmployeesIsInvalid() {
+        final int numberOfEmployees = 10;
+
+        when(ioManager.read())
+                .thenReturn(String.valueOf(numberOfEmployees))
+                .thenReturn(String.valueOf("invalidProfitMargin"));
+
+        assertThatThrownBy(() -> new Company(ioManager))
+                .isInstanceOf(InvalidProfitMarginValueException.class);
+    }
+
+    @Test
+    public void throwInvalidAllowInternParticipationValueExceptionWhenNumberOfEmployeesIsInvalid() {
+        final int numberOfEmployees = 10;
+        final double profitMargin = 200000;
+
+        when(ioManager.read())
+                .thenReturn(String.valueOf(numberOfEmployees))
+                .thenReturn(String.valueOf(profitMargin))
+                .thenReturn("invalidIsInternAllowedToParticipate");
+
+        assertThatThrownBy(() -> new Company(ioManager))
+                .isInstanceOf(InvalidAllowInternParticipationValueException.class);
     }
 }

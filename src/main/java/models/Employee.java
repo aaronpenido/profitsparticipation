@@ -14,7 +14,16 @@ public abstract class Employee {
             this.ioManager = ioManager;
             writeAnnualPerformanceValueMessage();
             this.annualPerformanceValue = Integer.parseInt(ioManager.read());
+
+            throwInvalidAnnualPerformanceValueExceptionIfValueRangeIsInvalid();
         } catch (NumberFormatException numberFormatException) {
+            throw new InvalidAnnualPerformanceValueException();
+        }
+    }
+
+    private void throwInvalidAnnualPerformanceValueExceptionIfValueRangeIsInvalid() throws InvalidAnnualPerformanceValueException {
+
+        if(this.annualPerformanceValue < 1 || this.annualPerformanceValue > 5) {
             throw new InvalidAnnualPerformanceValueException();
         }
     }
