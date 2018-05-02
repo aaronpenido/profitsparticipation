@@ -12,7 +12,7 @@ public class Main {
 
         try {
 
-            Company company = new Company(ioManager);
+            Company company = instantiateCompanyFromInputValues(ioManager);
             Employee employee = instantiateEmployeeFromInputValues(ioManager);
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
@@ -22,6 +22,14 @@ public class Main {
         } catch (ProfitParticipationException exception) {
             writeErrorFromProfitParticipationException(ioManager, exception);
         }
+    }
+
+    private static Company instantiateCompanyFromInputValues(IOManager ioManager)
+            throws InvalidProfitMarginValueException, InvalidNumberOfEmployeesException {
+
+        CompanyFactory companyFactory = new CompanyFactory(ioManager);
+
+        return companyFactory.getCompany();
     }
 
     private static Employee instantiateEmployeeFromInputValues(IOManager ioManager)
