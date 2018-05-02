@@ -28,4 +28,6 @@ public abstract class Employee {
     }
 
     abstract int jobTitleMultiplier();
+
+    abstract boolean isAllowedToParticipate(Company company);
 }

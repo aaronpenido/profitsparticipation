@@ -1,5 +1,6 @@
 package models;
 
+import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
 import models.io.IOManager;
@@ -9,8 +10,11 @@ public class Company {
     private IOManager ioManager;
     private Integer numberOfEmployees;
     private Double profitMarginValue;
+    private Boolean isInternAllowedToParticipate;
 
-    public Company(IOManager ioManager) throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException {
+    public Company(IOManager ioManager) throws InvalidNumberOfEmployeesException,
+            InvalidProfitMarginValueException, InvalidAllowInternParticipationValueException {
+
         this.ioManager = ioManager;
 
         writeNumberOfEmployeesMessage();
@@ -18,6 +22,27 @@ public class Company {
 
         writeProfitMarginMessage();
         this.profitMarginValue = readProfitMarginValue();
+
+        writeAllowInternParticipationMessage();
+        this.isInternAllowedToParticipate = readAllowInternParticipationValue();
+    }
+
+    public double calculateProfitParticipationValue(Employee employee) {
+
+        if (isParticipationAllowed(employee)) {
+
+            final int employeesPerformanceValue = employee.getAnnualPerformanceValue();
+            final int jobTitleMultiplier = employee.jobTitleMultiplier();
+            final double calculationFactor = getCalculationFactor();
+
+            return employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
+        }
+
+        return 0;
+    }
+
+    public Boolean isInternAllowedToParticipate() {
+        return isInternAllowedToParticipate;
     }
 
     private void writeNumberOfEmployeesMessage() {
@@ -44,24 +69,29 @@ public class Company {
         }
     }
 
-    public double calculateProfitParticipationValue(Employee employee) {
-
-        if (allowParticipation()) {
-
-            final int employeesPerformanceValue = employee.getAnnualPerformanceValue();
-            final int jobTitleMultiplier = employee.jobTitleMultiplier();
-            final double calculationFactor = getCalculationFactor();
-
-            return employeesPerformanceValue * jobTitleMultiplier * calculationFactor;
-        }
-
-        return 0;
+    private void writeAllowInternParticipationMessage() {
+        ioManager.write("Please inform 'yes' or 'no' if an intern is allowed to participate:");
     }
 
-    private boolean allowParticipation() {
+    private Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
+        String value = ioManager.read();
+
+        if(value.equalsIgnoreCase("yes")) {
+            return true;
+        }
+
+        if(value.equalsIgnoreCase("no")) {
+            return false;
+        }
+
+        throw new InvalidAllowInternParticipationValueException();
+    }
+
+    private boolean isParticipationAllowed(Employee employee) {
         final int profitFactor = 10000 * numberOfEmployees;
 
-        return profitMarginValue > profitFactor;
+        return employee.isAllowedToParticipate(this)
+                && profitMarginValue > profitFactor;
     }
 
     private double getCalculationFactor() {

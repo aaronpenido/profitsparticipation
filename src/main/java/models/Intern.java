@@ -3,19 +3,19 @@ package models;
 import exceptions.InvalidAnnualPerformanceValueException;
 import models.io.IOManager;
 
-public class Analyst extends Employee {
+public class Intern extends Employee {
 
-    Analyst(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
+    Intern(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
         super(ioManager);
     }
 
     @Override
-    public int jobTitleMultiplier() {
-        return 2;
+    int jobTitleMultiplier() {
+        return 1;
     }
 
     @Override
     boolean isAllowedToParticipate(Company company) {
-        return true;
+        return company.isInternAllowedToParticipate();
     }
 }

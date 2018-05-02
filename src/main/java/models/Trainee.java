@@ -13,4 +13,9 @@ public class Trainee extends Employee {
     public int jobTitleMultiplier() {
         return 1;
     }
+
+    @Override
+    boolean isAllowedToParticipate(Company company) {
+        return true;
+    }
 }

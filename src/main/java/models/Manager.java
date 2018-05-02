@@ -13,4 +13,9 @@ public class Manager extends Employee {
     public int jobTitleMultiplier() {
         return 3;
     }
+
+    @Override
+    boolean isAllowedToParticipate(Company company) {
+        return true;
+    }
 }
