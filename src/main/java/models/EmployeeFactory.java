@@ -31,6 +31,8 @@ public class EmployeeFactory {
                 return new Manager(ioManager);
             case TRAINEE:
                 return new Trainee(ioManager);
+            case INTERN:
+                return new Intern(ioManager);
             default:
                 throw new InvalidJobTitleException();
         }
