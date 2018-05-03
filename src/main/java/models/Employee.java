@@ -1,19 +1,21 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import models.io.IOManager;
+import models.io.IOReader;
+import models.io.IOWriter;
 
 public abstract class Employee {
 
-    private final IOManager ioManager;
+    private IOWriter ioWriter;
     private int annualPerformanceValue;
 
-    Employee(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
+    Employee(IOReader ioReader, IOWriter ioWriter) throws InvalidAnnualPerformanceValueException {
 
         try {
-            this.ioManager = ioManager;
+            this.ioWriter = ioWriter;
+
             writeAnnualPerformanceValueMessage();
-            this.annualPerformanceValue = Integer.parseInt(ioManager.read());
+            this.annualPerformanceValue = Integer.parseInt(ioReader.read());
 
             throwInvalidAnnualPerformanceValueExceptionIfValueRangeIsInvalid();
         } catch (NumberFormatException numberFormatException) {
@@ -33,7 +35,7 @@ public abstract class Employee {
     }
 
     private void writeAnnualPerformanceValueMessage() {
-        ioManager.write("Please inform the employee's annual performance value:");
+        ioWriter.write("Please inform the employee's annual performance value:");
     }
 
     abstract int jobTitleMultiplier();

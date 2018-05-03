@@ -3,19 +3,22 @@ package models;
 import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
-import models.io.IOManager;
+import models.io.IOReader;
+import models.io.IOWriter;
 
 public class Company {
 
-    private IOManager ioManager;
+    private IOReader ioReader;
+    private IOWriter ioWriter;
     private Integer numberOfEmployees;
     private Double profitMarginValue;
     private Boolean isInternAllowedToParticipate;
 
-    public Company(IOManager ioManager) throws InvalidNumberOfEmployeesException,
+    public Company(IOReader ioReader, IOWriter ioWriter) throws InvalidNumberOfEmployeesException,
             InvalidProfitMarginValueException, InvalidAllowInternParticipationValueException {
 
-        this.ioManager = ioManager;
+        this.ioReader = ioReader;
+        this.ioWriter = ioWriter;
 
         writeNumberOfEmployeesMessage();
         this.numberOfEmployees = readNumberOfEmployees();
@@ -46,35 +49,35 @@ public class Company {
     }
 
     private void writeNumberOfEmployeesMessage() {
-        ioManager.write("Please inform the number of employees:");
+        ioWriter.write("Please inform the number of employees:");
     }
 
     private Integer readNumberOfEmployees() throws InvalidNumberOfEmployeesException {
         try {
-            return Integer.parseInt(ioManager.read());
+            return Integer.parseInt(ioReader.read());
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidNumberOfEmployeesException();
         }
     }
 
     private void writeProfitMarginMessage() {
-        ioManager.write("Please inform the profit margin value:");
+        ioWriter.write("Please inform the profit margin value:");
     }
 
     private Double readProfitMarginValue() throws InvalidProfitMarginValueException {
         try {
-            return Double.parseDouble(ioManager.read());
+            return Double.parseDouble(ioReader.read());
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidProfitMarginValueException();
         }
     }
 
     private void writeAllowInternParticipationMessage() {
-        ioManager.write("Please inform 'yes' or 'no' if an intern is allowed to participate:");
+        ioWriter.write("Please inform 'yes' or 'no' if an intern is allowed to participate:");
     }
 
     private Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
-        String value = ioManager.read();
+        String value = ioReader.read();
 
         if(value.equalsIgnoreCase("yes")) {
             return true;

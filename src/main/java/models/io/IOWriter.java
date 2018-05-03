@@ -1,8 +1,6 @@
 package models.io;
 
-public interface IOManager {
-
-    String read();
+public interface IOWriter {
 
     void write(String value);
 

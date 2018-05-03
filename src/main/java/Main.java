@@ -1,43 +1,46 @@
 import exceptions.*;
 import models.*;
-import models.io.ConsoleManager;
+import models.io.ConsoleReader;
 import models.EmployeeFactory;
-import models.io.IOManager;
+import models.io.ConsoleWriter;
+import models.io.IOReader;
+import models.io.IOWriter;
 
 public class Main {
 
     public static void main(String[] args)  {
 
-        IOManager ioManager = new ConsoleManager();
+        IOReader ioReader = new ConsoleReader();
+        IOWriter ioWriter = new ConsoleWriter();
 
         try {
 
-            Company company = new Company(ioManager);
-            Employee employee = instantiateEmployeeFromInputValues(ioManager);
+            Company company = new Company(ioReader, ioWriter);
+            Employee employee = instantiateEmployeeFromInputValues(ioReader, ioWriter);
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
-            writeProfitParticipationValue(ioManager, profitParticipationValue);
+            writeProfitParticipationValue(ioWriter, profitParticipationValue);
 
         } catch (ProfitParticipationException exception) {
-            writeErrorFromProfitParticipationException(ioManager, exception);
+            writeErrorFromProfitParticipationException(ioWriter, exception);
         }
     }
 
-    private static Employee instantiateEmployeeFromInputValues(IOManager ioManager)
+    private static Employee instantiateEmployeeFromInputValues(IOReader ioReader, IOWriter ioWriter)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        EmployeeFactory employeeFactory = new EmployeeFactory(ioManager);
+        EmployeeFactory employeeFactory = new EmployeeFactory(ioReader, ioWriter);
 
         return employeeFactory.getEmployee();
     }
 
-    private static void writeProfitParticipationValue(IOManager ioManager, double profitParticipationValue) {
-        ioManager.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
+    private static void writeProfitParticipationValue(IOWriter ioWriter, double profitParticipationValue) {
+        ioWriter.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
     }
 
-    private static void writeErrorFromProfitParticipationException(IOManager ioManager,
+    private static void writeErrorFromProfitParticipationException(IOWriter ioWriter,
                                                                    ProfitParticipationException profitParticipationException) {
-        ioManager.writeError(profitParticipationException.getMessage());
+        ioWriter.writeError(profitParticipationException.getMessage());
     }
 }

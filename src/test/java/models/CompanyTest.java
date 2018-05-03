@@ -4,11 +4,12 @@ import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
+import models.io.IOWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import models.io.IOManager;
+import models.io.IOReader;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -19,7 +20,9 @@ import static org.mockito.Mockito.when;
 public class CompanyTest {
 
     @Mock
-    private IOManager ioManager;
+    private IOReader ioReader;
+    @Mock
+    private IOWriter ioWriter;
 
     @Test
     public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsLessThanTenThousandTimesEmployeesNumber()
@@ -30,12 +33,12 @@ public class CompanyTest {
         final Employee employee = mock(Employee.class);
         final String isInternAllowedToParticipate = "no";
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -52,12 +55,12 @@ public class CompanyTest {
 
         final Employee employee = mock(Employee.class);
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -75,15 +78,15 @@ public class CompanyTest {
 
         final String employeesAnnualPerformanceValue = "1";
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Trainee(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Trainee(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -101,15 +104,15 @@ public class CompanyTest {
         final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 8000;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Trainee(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Trainee(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -127,15 +130,15 @@ public class CompanyTest {
         final String employeesAnnualPerformanceValue = "1";
         final double expectedEmployeesProfitParticipationValue = 16000;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Analyst(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Analyst(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
@@ -152,15 +155,15 @@ public class CompanyTest {
 
         final double expectedEmployeesProfitParticipationValue = 24000;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Manager(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Manager(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -178,15 +181,15 @@ public class CompanyTest {
 
         final double expectedEmployeesProfitParticipationValue = 8000;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Intern(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Intern(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -205,15 +208,15 @@ public class CompanyTest {
 
         final double expectedEmployeesProfitParticipationValue = 0;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn(isInternAllowedToParticipate);
 
-        final Company company = new Company(ioManager);
+        final Company company = new Company(ioReader, ioWriter);
 
-        when(ioManager.read()).thenReturn(employeesAnnualPerformanceValue);
-        final Employee employee = new Intern(ioManager);
+        when(ioReader.read()).thenReturn(employeesAnnualPerformanceValue);
+        final Employee employee = new Intern(ioReader, ioWriter);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -222,9 +225,9 @@ public class CompanyTest {
 
     @Test
     public void throwInvalidNumberOfEmployeesExceptionWhenNumberOfEmployeesIsInvalid() {
-        when(ioManager.read()).thenReturn("invalidNumberOfEmployees");
+        when(ioReader.read()).thenReturn("invalidNumberOfEmployees");
 
-        assertThatThrownBy(() -> new Company(ioManager))
+        assertThatThrownBy(() -> new Company(ioReader, ioWriter))
                 .isInstanceOf(InvalidNumberOfEmployeesException.class);
     }
 
@@ -232,11 +235,11 @@ public class CompanyTest {
     public void throwInvalidProfitMarginValueExceptionWhenNumberOfEmployeesIsInvalid() {
         final int numberOfEmployees = 10;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf("invalidProfitMargin"));
 
-        assertThatThrownBy(() -> new Company(ioManager))
+        assertThatThrownBy(() -> new Company(ioReader, ioWriter))
                 .isInstanceOf(InvalidProfitMarginValueException.class);
     }
 
@@ -245,12 +248,12 @@ public class CompanyTest {
         final int numberOfEmployees = 10;
         final double profitMargin = 200000;
 
-        when(ioManager.read())
+        when(ioReader.read())
                 .thenReturn(String.valueOf(numberOfEmployees))
                 .thenReturn(String.valueOf(profitMargin))
                 .thenReturn("invalidIsInternAllowedToParticipate");
 
-        assertThatThrownBy(() -> new Company(ioManager))
+        assertThatThrownBy(() -> new Company(ioReader, ioWriter))
                 .isInstanceOf(InvalidAllowInternParticipationValueException.class);
     }
 }

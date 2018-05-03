@@ -1,12 +1,13 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import models.io.IOManager;
+import models.io.IOReader;
+import models.io.IOWriter;
 
 public class Trainee extends Employee {
 
-    Trainee(IOManager ioManager) throws InvalidAnnualPerformanceValueException {
-        super(ioManager);
+    Trainee(IOReader ioReader, IOWriter ioWriter) throws InvalidAnnualPerformanceValueException {
+        super(ioReader, ioWriter);
     }
 
     @Override

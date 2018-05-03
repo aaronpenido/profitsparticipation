@@ -2,7 +2,8 @@ package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidJobTitleException;
-import models.io.IOManager;
+import models.io.IOReader;
+import models.io.IOWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -16,14 +17,16 @@ import static org.mockito.Mockito.when;
 public class EmployeeFactoryTest {
 
     @Mock
-    private IOManager ioManager;
+    private IOReader ioManager;
+    @Mock
+    private IOWriter ioWriter;
 
     @Test
     public void throwInvalidJobTitleExceptionIfJobIsInvalid() {
 
         when(ioManager.read()).thenReturn("invalidJobTitle");
 
-        EmployeeFactory employeeFactory = new EmployeeFactory(ioManager);
+        EmployeeFactory employeeFactory = new EmployeeFactory(ioManager, ioWriter);
 
         assertThatThrownBy(() -> employeeFactory.getEmployee())
                 .isInstanceOf(InvalidJobTitleException.class);
@@ -35,7 +38,7 @@ public class EmployeeFactoryTest {
 
         when(ioManager.read()).thenReturn("manager").thenReturn(annualPerformanceValue);
 
-        Employee employee = new EmployeeFactory(ioManager).getEmployee();
+        Employee employee = new EmployeeFactory(ioManager, ioWriter).getEmployee();
 
         assertThat(employee).isInstanceOf(Manager.class);
     }
@@ -46,7 +49,7 @@ public class EmployeeFactoryTest {
 
         when(ioManager.read()).thenReturn("analyst").thenReturn(annualPerformanceValue);
 
-        Employee employee = new EmployeeFactory(ioManager).getEmployee();
+        Employee employee = new EmployeeFactory(ioManager, ioWriter).getEmployee();
 
         assertThat(employee).isInstanceOf(Analyst.class);
     }
@@ -57,7 +60,7 @@ public class EmployeeFactoryTest {
 
         when(ioManager.read()).thenReturn("trainee").thenReturn(annualPerformanceValue);
 
-        Employee employee = new EmployeeFactory(ioManager).getEmployee();
+        Employee employee = new EmployeeFactory(ioManager, ioWriter).getEmployee();
 
         assertThat(employee).isInstanceOf(Trainee.class);
     }
@@ -68,7 +71,7 @@ public class EmployeeFactoryTest {
 
         when(ioManager.read()).thenReturn("intern").thenReturn(annualPerformanceValue);
 
-        Employee employee = new EmployeeFactory(ioManager).getEmployee();
+        Employee employee = new EmployeeFactory(ioManager, ioWriter).getEmployee();
 
         assertThat(employee).isInstanceOf(Intern.class);
     }

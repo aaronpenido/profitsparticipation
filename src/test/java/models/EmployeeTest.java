@@ -1,7 +1,8 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import models.io.IOManager;
+import models.io.IOReader;
+import models.io.IOWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -14,32 +15,34 @@ import static org.mockito.Mockito.when;
 public class EmployeeTest {
 
     @Mock
-    private IOManager ioManager;
+    private IOReader ioReader;
+    @Mock
+    private IOWriter ioWriter;
 
     @Test
     public void throwInvalidAnnualPerformanceValueExceptionWhenInformedNonNumericValue() {
 
-        when(ioManager.read()).thenReturn("invalidAnnualPerformanceValue");
+        when(ioReader.read()).thenReturn("invalidAnnualPerformanceValue");
 
-        assertThatThrownBy(() -> new Manager(ioManager))
+        assertThatThrownBy(() -> new Manager(ioReader, ioWriter))
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 
     @Test
     public void throwInvalidAnnualPerformanceValueExceptionWhenInformedValueLowerThanOne() {
 
-        when(ioManager.read()).thenReturn("0");
+        when(ioReader.read()).thenReturn("0");
 
-        assertThatThrownBy(() -> new Manager(ioManager))
+        assertThatThrownBy(() -> new Manager(ioReader, ioWriter))
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 
     @Test
     public void throwInvalidAnnualPerformanceValueExceptionWhenInformedValueGreaterThanOne() {
 
-        when(ioManager.read()).thenReturn("6");
+        when(ioReader.read()).thenReturn("6");
 
-        assertThatThrownBy(() -> new Manager(ioManager))
+        assertThatThrownBy(() -> new Manager(ioReader, ioWriter))
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 }
