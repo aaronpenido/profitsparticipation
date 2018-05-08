@@ -1,13 +1,11 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import models.io.IOReader;
-import models.io.IOWriter;
 
 public class Manager extends Employee {
 
-    Manager(IOReader ioReader, IOWriter ioWriter) throws InvalidAnnualPerformanceValueException {
-        super(ioReader, ioWriter);
+    public Manager(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
+        super(employeeParameters);
     }
 
     @Override

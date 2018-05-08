@@ -12,11 +12,13 @@ public class Main {
 
         IOReader ioReader = new ConsoleReader();
         IOWriter ioWriter = new ConsoleWriter();
+        CompanyParametersReader companyParametersReader = new ResponsiveCompanyParameters(ioWriter, ioReader);
+        EmployeeParameters employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
 
         try {
 
-            Company company = new Company(ioReader, ioWriter);
-            Employee employee = instantiateEmployeeFromInputValues(ioReader, ioWriter);
+            Company company = instantiateCompanyFromInputValues(companyParametersReader);
+            Employee employee = instantiateEmployeeFromInputValues(employeeParameters);
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -27,12 +29,22 @@ public class Main {
         }
     }
 
-    private static Employee instantiateEmployeeFromInputValues(IOReader ioReader, IOWriter ioWriter)
+    private static Employee instantiateEmployeeFromInputValues(EmployeeParameters employeeParameters)
             throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        EmployeeFactory employeeFactory = new EmployeeFactory(ioReader, ioWriter);
+        EmployeeFactory employeeFactory = new EmployeeFactory(employeeParameters);
 
         return employeeFactory.getEmployee();
+    }
+
+    private static Company instantiateCompanyFromInputValues(CompanyParametersReader companyParametersReader)
+            throws InvalidNumberOfEmployeesException, InvalidProfitMarginValueException, InvalidAllowInternParticipationValueException {
+
+        Integer numberOfEmployees = companyParametersReader.readNumberOfEmployees();
+        Double profitMarginValue = companyParametersReader.readProfitMarginValue();
+        Boolean isInternAllowedToParticipate = companyParametersReader.readAllowInternParticipationValue();
+
+        return new Company(numberOfEmployees, profitMarginValue, isInternAllowedToParticipate);
     }
 
     private static void writeProfitParticipationValue(IOWriter ioWriter, double profitParticipationValue) {

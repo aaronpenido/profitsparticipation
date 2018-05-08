@@ -3,23 +3,17 @@ package models;
 import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidJobTitleException;
 import models.enums.JobTitle;
-import models.io.IOReader;
-import models.io.IOWriter;
 
 public class EmployeeFactory {
 
-    private IOReader ioReader;
-    private IOWriter ioWriter;
+    private EmployeeParameters employeeParameters;
 
-    public EmployeeFactory(IOReader ioReader, IOWriter ioWriter) {
-        this.ioReader = ioReader;
-        this.ioWriter = ioWriter;
+    public EmployeeFactory(EmployeeParameters employeeParameters) {
+        this.employeeParameters = employeeParameters;
     }
 
     public Employee getEmployee() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
-
-        writeJobTitleMessage();
-        JobTitle jobTitle = readJobTitle();
+        JobTitle jobTitle = employeeParameters.readJobTitle();
 
         return employeeFromJobTitle(jobTitle);
     }
@@ -29,32 +23,15 @@ public class EmployeeFactory {
 
         switch (jobTitle) {
             case ANALYST:
-                return new Analyst(ioReader, ioWriter);
+                return new Analyst(employeeParameters);
             case MANAGER:
-                return new Manager(ioReader, ioWriter);
+                return new Manager(employeeParameters);
             case TRAINEE:
-                return new Trainee(ioReader, ioWriter);
+                return new Trainee(employeeParameters);
             case INTERN:
-                return new Intern(ioReader, ioWriter);
+                return new Intern(employeeParameters);
             default:
                 throw new InvalidJobTitleException();
         }
-    }
-
-    private JobTitle readJobTitle() throws InvalidJobTitleException {
-        return jobTitleFromString(ioReader.read());
-    }
-
-    private JobTitle jobTitleFromString(String jobTitleString) throws InvalidJobTitleException {
-
-        try {
-            return JobTitle.valueOf(jobTitleString.toUpperCase());
-        } catch (IllegalArgumentException illegalArgumentException) {
-            throw new InvalidJobTitleException();
-        }
-    }
-
-    private void writeJobTitleMessage() {
-        ioWriter.write("Please inform the job title:");
     }
 }
