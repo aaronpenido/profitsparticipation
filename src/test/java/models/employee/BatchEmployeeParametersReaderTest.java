@@ -16,17 +16,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BatchEmployeeParametersTest {
+public class BatchEmployeeParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
-    private BatchEmployeeParameters batchEmployeeParameters;
+    private BatchEmployeeParametersReader batchEmployeeParametersReader;
 
     @Test
     public void throwExceptionWhenValuesAreNull() {
         when(ioReader.read()).thenReturn(null);
 
-        assertThatThrownBy(() -> new BatchEmployeeParameters(ioReader))
+        assertThatThrownBy(() -> new BatchEmployeeParametersReader(ioReader))
                 .isInstanceOf(InvalidValuesException.class);
     }
 
@@ -34,7 +34,7 @@ public class BatchEmployeeParametersTest {
     public void throwExceptionWhenValuesAreEmpty() {
         when(ioReader.read()).thenReturn("");
 
-        assertThatThrownBy(() -> new BatchEmployeeParameters(ioReader))
+        assertThatThrownBy(() -> new BatchEmployeeParametersReader(ioReader))
                 .isInstanceOf(InvalidValuesException.class);
     }
 
@@ -42,9 +42,9 @@ public class BatchEmployeeParametersTest {
     public void readAnnualPerformanceValue() throws InvalidAnnualPerformanceValueException, InvalidValuesException {
         when(ioReader.read()).thenReturn("annualPerformanceValue: 1");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        Integer annualPerformanceValue = batchEmployeeParameters.readAnnualPerformanceValue();
+        Integer annualPerformanceValue = batchEmployeeParametersReader.readAnnualPerformanceValue();
 
         assertThat(annualPerformanceValue).isEqualTo(1);
     }
@@ -53,9 +53,9 @@ public class BatchEmployeeParametersTest {
     public void throwExceptionWhenAnnualPerformanceValueIsInvalid() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("annualPerformanceValue: invalid");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        assertThatThrownBy(() -> batchEmployeeParameters.readAnnualPerformanceValue())
+        assertThatThrownBy(() -> batchEmployeeParametersReader.readAnnualPerformanceValue())
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 
@@ -63,9 +63,9 @@ public class BatchEmployeeParametersTest {
     public void throwExceptionWhenThereIsNoAnnualPerformanceValue() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("invalid: invalid");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        assertThatThrownBy(() -> batchEmployeeParameters.readAnnualPerformanceValue())
+        assertThatThrownBy(() -> batchEmployeeParametersReader.readAnnualPerformanceValue())
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 
@@ -73,9 +73,9 @@ public class BatchEmployeeParametersTest {
     public void readJobTitle() throws InvalidValuesException, InvalidJobTitleException {
         when(ioReader.read()).thenReturn("jobTitle: Manager");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        JobTitle jobTitle = batchEmployeeParameters.readJobTitle();
+        JobTitle jobTitle = batchEmployeeParametersReader.readJobTitle();
 
         assertThat(jobTitle).isEqualTo(MANAGER);
     }
@@ -84,9 +84,9 @@ public class BatchEmployeeParametersTest {
     public void throwExceptionWhenJobTitleIsInvalid() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("jobTitle: invalid");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        assertThatThrownBy(() -> batchEmployeeParameters.readJobTitle())
+        assertThatThrownBy(() -> batchEmployeeParametersReader.readJobTitle())
                 .isInstanceOf(InvalidJobTitleException.class);
     }
 
@@ -94,9 +94,9 @@ public class BatchEmployeeParametersTest {
     public void throwExceptionWhenThereIsNoJobTitle() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("invalid: invalid");
 
-        batchEmployeeParameters = new BatchEmployeeParameters(ioReader);
+        batchEmployeeParametersReader = new BatchEmployeeParametersReader(ioReader);
 
-        assertThatThrownBy(() -> batchEmployeeParameters.readJobTitle())
+        assertThatThrownBy(() -> batchEmployeeParametersReader.readJobTitle())
                 .isInstanceOf(InvalidJobTitleException.class);
     }
 }

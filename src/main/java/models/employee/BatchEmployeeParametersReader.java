@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BatchEmployeeParameters implements EmployeeParametersReader {
+public class BatchEmployeeParametersReader implements EmployeeParametersReader {
 
     private IOReader ioReader;
     private List<String> values;
 
-    public BatchEmployeeParameters(IOReader ioReader) throws InvalidValuesException {
+    public BatchEmployeeParametersReader(IOReader ioReader) throws InvalidValuesException {
         this.ioReader = ioReader;
         this.values = getValues();
     }

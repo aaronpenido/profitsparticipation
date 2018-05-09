@@ -3,7 +3,7 @@ import models.calculator.ProfitParticipationCalculator;
 import models.company.BatchCompanyParametersReader;
 import models.company.CompanyParametersReader;
 import models.company.ResponsiveCompanyParametersReader;
-import models.employee.BatchEmployeeParameters;
+import models.employee.BatchEmployeeParametersReader;
 import models.employee.EmployeeParametersReader;
 import models.employee.ResponsiveEmployeeParameters;
 import models.io.*;
@@ -34,7 +34,7 @@ public class Main {
         IOReader ioReader = new FileReader(filePath);
 
         companyParametersReader = new BatchCompanyParametersReader(ioReader);
-        employeeParameters = new BatchEmployeeParameters(ioReader);
+        employeeParameters = new BatchEmployeeParametersReader(ioReader);
 
         calculate(ioWriter);
     }
