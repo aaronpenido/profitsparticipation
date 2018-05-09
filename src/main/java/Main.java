@@ -1,10 +1,17 @@
 import exceptions.InvalidValuesException;
-import models.calculator.BatchProfitParticipationCalculator;
 import models.calculator.ProfitParticipationCalculator;
-import models.calculator.ResponsiveProfitParticipationCalculator;
+import models.company.BatchCompanyParameters;
+import models.company.CompanyParametersReader;
+import models.company.ResponsiveCompanyParameters;
+import models.employee.BatchEmployeeParameters;
+import models.employee.EmployeeParameters;
+import models.employee.ResponsiveEmployeeParameters;
 import models.io.*;
 
 public class Main {
+
+    private static CompanyParametersReader companyParametersReader;
+    private static EmployeeParameters employeeParameters;
 
     public static void main(String[] args) throws InvalidValuesException {
         IOWriter ioWriter = new ConsoleWriter();
@@ -16,18 +23,25 @@ public class Main {
     private static void calculateFromConsole(IOWriter ioWriter) {
         IOReader ioReader = new ConsoleReader();
 
-        ProfitParticipationCalculator profitParticipationCalculator =
-                new ResponsiveProfitParticipationCalculator(ioReader, ioWriter);
+        companyParametersReader = new ResponsiveCompanyParameters(ioWriter, ioReader);
+        employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
 
-        profitParticipationCalculator.calculate();
+        calculate(ioWriter);
     }
 
     private static void calculateFromFile(IOWriter ioWriter) throws InvalidValuesException {
         String filePath = "/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt";
         IOReader ioReader = new FileReader(filePath);
 
+        companyParametersReader = new BatchCompanyParameters(ioReader);
+        employeeParameters = new BatchEmployeeParameters(ioReader);
+
+        calculate(ioWriter);
+    }
+
+    private static void calculate(IOWriter ioWriter) {
         ProfitParticipationCalculator profitParticipationCalculator =
-                new BatchProfitParticipationCalculator(ioReader, ioWriter);
+                new ProfitParticipationCalculator(ioWriter, companyParametersReader, employeeParameters);
 
         profitParticipationCalculator.calculate();
     }
