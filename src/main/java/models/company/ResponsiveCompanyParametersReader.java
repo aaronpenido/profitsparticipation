@@ -6,12 +6,12 @@ import exceptions.InvalidProfitMarginValueException;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveCompanyParameters implements CompanyParametersReader {
+public class ResponsiveCompanyParametersReader implements CompanyParametersReader {
 
     private IOReader ioReader;
     private CompanyParametersMessagesWriter companyParametersMessagesWriter;
 
-    public ResponsiveCompanyParameters(IOWriter ioWriter, IOReader ioReader) {
+    public ResponsiveCompanyParametersReader(IOWriter ioWriter, IOReader ioReader) {
         this.companyParametersMessagesWriter = new CompanyParametersMessagesWriter(ioWriter);
         this.ioReader = ioReader;
     }

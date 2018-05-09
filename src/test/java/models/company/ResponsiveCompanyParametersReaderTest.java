@@ -26,7 +26,7 @@ public class ResponsiveCompanyParametersReaderTest {
 
     @Before
     public void setUp() {
-        companyParametersReader = new ResponsiveCompanyParameters(ioWriter, ioReader);
+        companyParametersReader = new ResponsiveCompanyParametersReader(ioWriter, ioReader);
     }
 
     @Test
