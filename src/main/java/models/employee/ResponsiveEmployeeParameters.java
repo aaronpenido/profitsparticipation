@@ -2,7 +2,6 @@ package models.employee;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidJobTitleException;
-import models.employee.EmployeeParameters;
 import models.enums.JobTitle;
 import models.io.IOReader;
 import models.io.IOWriter;
