@@ -1,6 +1,7 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
+import models.company.Company;
 
 public abstract class Employee {
 
@@ -17,11 +18,11 @@ public abstract class Employee {
         }
     }
 
-    int getAnnualPerformanceValue() {
+    public int getAnnualPerformanceValue() {
         return annualPerformanceValue;
     }
 
-    abstract int jobTitleMultiplier();
+    public abstract int jobTitleMultiplier();
 
-    abstract boolean isAllowedToParticipate(Company company);
+    public abstract boolean isAllowedToParticipate(Company company);
 }

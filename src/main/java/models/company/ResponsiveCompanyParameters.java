@@ -1,4 +1,4 @@
-package models;
+package models.company;
 
 import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidNumberOfEmployeesException;
@@ -9,15 +9,17 @@ import models.io.IOWriter;
 public class ResponsiveCompanyParameters implements CompanyParametersReader {
 
     private IOReader ioReader;
+    private CompanyParametersMessagesWriter responsiveCompanyParametersWriter;
 
     public ResponsiveCompanyParameters(IOWriter ioWriter, IOReader ioReader) {
+        this.responsiveCompanyParametersWriter = new CompanyParametersMessagesWriter(ioWriter);
         this.ioReader = ioReader;
     }
 
     @Override
     public Integer readNumberOfEmployees() throws InvalidNumberOfEmployeesException {
         try {
-            writeNumberOfEmployeesMessage();
+            responsiveCompanyParametersWriter.writeNumberOfEmployeesMessage();
             return Integer.parseInt(ioReader.read());
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidNumberOfEmployeesException();
@@ -27,7 +29,7 @@ public class ResponsiveCompanyParameters implements CompanyParametersReader {
     @Override
     public Double readProfitMarginValue() throws InvalidProfitMarginValueException {
         try {
-            writeProfitMarginMessage();
+            responsiveCompanyParametersWriter.writeProfitMarginMessage();
             return Double.parseDouble(ioReader.read());
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidProfitMarginValueException();
@@ -36,7 +38,7 @@ public class ResponsiveCompanyParameters implements CompanyParametersReader {
 
     @Override
     public Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
-        writeAllowInternParticipationMessage();
+        responsiveCompanyParametersWriter.writeAllowInternParticipationMessage();
         String value = ioReader.read();
 
         if(value.equalsIgnoreCase("yes")) {

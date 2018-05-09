@@ -1,4 +1,6 @@
-package models;
+package models.company;
+
+import models.Employee;
 
 public class Company {
 

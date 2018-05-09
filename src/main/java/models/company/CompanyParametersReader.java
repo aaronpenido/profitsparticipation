@@ -1,4 +1,4 @@
-package models;
+package models.company;
 
 import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidNumberOfEmployeesException;

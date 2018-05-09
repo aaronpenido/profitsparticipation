@@ -1,6 +1,7 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
+import models.company.Company;
 
 public class Manager extends Employee {
 
@@ -14,7 +15,7 @@ public class Manager extends Employee {
     }
 
     @Override
-    boolean isAllowedToParticipate(Company company) {
+    public boolean isAllowedToParticipate(Company company) {
         return true;
     }
 }

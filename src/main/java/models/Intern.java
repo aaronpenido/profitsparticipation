@@ -1,6 +1,7 @@
 package models;
 
 import exceptions.InvalidAnnualPerformanceValueException;
+import models.company.Company;
 
 public class Intern extends Employee {
 
@@ -9,12 +10,12 @@ public class Intern extends Employee {
     }
 
     @Override
-    int jobTitleMultiplier() {
+    public int jobTitleMultiplier() {
         return 1;
     }
 
     @Override
-    boolean isAllowedToParticipate(Company company) {
+    public boolean isAllowedToParticipate(Company company) {
         return company.isInternAllowedToParticipate();
     }
 }
