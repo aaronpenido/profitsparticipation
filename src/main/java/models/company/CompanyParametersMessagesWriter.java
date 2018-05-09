@@ -1,5 +1,6 @@
 package models.company;
 
+import models.BooleanValue;
 import models.io.IOWriter;
 
 public class CompanyParametersMessagesWriter {
@@ -19,6 +20,9 @@ public class CompanyParametersMessagesWriter {
     }
 
     void writeAllowInternParticipationMessage() {
-        ioWriter.write("Please inform 'yes' or 'no' if an intern is allowed to participate:");
+        String trueValues = BooleanValue.TRUE.getValues();
+        String falseValues = BooleanValue.FALSE.getValues();
+
+        ioWriter.write(String.format("Please inform %s, %s if an intern is allowed to participate:", trueValues, falseValues));
     }
 }

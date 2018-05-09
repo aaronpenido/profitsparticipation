@@ -1,8 +1,11 @@
 package models.company;
 
+import com.sun.javafx.css.converters.BooleanConverter;
 import exceptions.InvalidAllowInternParticipationValueException;
+import exceptions.InvalidBooleanValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
+import models.BooleanValue;
 import models.io.IOReader;
 import models.io.IOWriter;
 
@@ -38,19 +41,12 @@ public class ResponsiveCompanyParametersReader implements CompanyParametersReade
 
     @Override
     public Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
-        companyParametersMessagesWriter.writeAllowInternParticipationMessage();
-        String value = ioReader.read();
-
-        if(value.equalsIgnoreCase("yes")) {
-            return true;
+        try {
+            companyParametersMessagesWriter.writeAllowInternParticipationMessage();
+            String value = ioReader.read();
+            return BooleanValue.fromString(value);
+        } catch (InvalidBooleanValueException e) {
+            throw new InvalidAllowInternParticipationValueException();
         }
-
-        if(value.equalsIgnoreCase("no")) {
-            return false;
-        }
-
-        throw new InvalidAllowInternParticipationValueException();
     }
-
-
 }

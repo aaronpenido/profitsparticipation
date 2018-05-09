@@ -1,6 +1,7 @@
 package models.company;
 
 import exceptions.*;
+import models.BooleanValue;
 import models.io.IOReader;
 import java.util.Arrays;
 import java.util.List;
@@ -47,16 +48,18 @@ public class BatchCompanyParametersReader implements CompanyParametersReader {
     public Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
         final String key = "allowInternParticipation";
 
-        String allowInternParticipationValueLine = getValueFromKey(key)
+        String allowInternParticipationValue = values.stream()
+                .filter(value -> value.toUpperCase().contains(key.toUpperCase()))
+                .filter(value -> value.split(":").length > 1)
+                .map(value -> value.split(":")[1].trim())
+                .findFirst()
                 .orElseThrow(InvalidAllowInternParticipationValueException::new);
 
-        if(allowInternParticipationValueLine.contains("true")) {
-            return true;
+        try {
+            return BooleanValue.fromString(allowInternParticipationValue);
+        } catch (InvalidBooleanValueException e) {
+            throw new InvalidAllowInternParticipationValueException();
         }
-        if(allowInternParticipationValueLine.contains("false")) {
-            return false;
-        }
-        throw new InvalidAllowInternParticipationValueException();
     }
 
     private List<String> getValues() throws InvalidValuesException {
