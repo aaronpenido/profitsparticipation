@@ -8,11 +8,9 @@ import models.io.IOWriter;
 
 public class ResponsiveCompanyParameters implements CompanyParametersReader {
 
-    private IOWriter ioWriter;
     private IOReader ioReader;
 
     public ResponsiveCompanyParameters(IOWriter ioWriter, IOReader ioReader) {
-        this.ioWriter = ioWriter;
         this.ioReader = ioReader;
     }
 
@@ -52,15 +50,5 @@ public class ResponsiveCompanyParameters implements CompanyParametersReader {
         throw new InvalidAllowInternParticipationValueException();
     }
 
-    private void writeNumberOfEmployeesMessage() {
-        ioWriter.write("Please inform the number of employees:");
-    }
 
-    private void writeProfitMarginMessage() {
-        ioWriter.write("Please inform the profit margin value:");
-    }
-
-    private void writeAllowInternParticipationMessage() {
-        ioWriter.write("Please inform 'yes' or 'no' if an intern is allowed to participate:");
-    }
 }
