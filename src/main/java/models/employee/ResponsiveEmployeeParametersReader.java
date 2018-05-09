@@ -6,12 +6,12 @@ import models.enums.JobTitle;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveEmployeeParameters implements EmployeeParametersReader {
+public class ResponsiveEmployeeParametersReader implements EmployeeParametersReader {
 
     private IOReader ioReader;
     private EmployeeParametersMessagesWriter employeeParametersMessagesWriter;
 
-    public ResponsiveEmployeeParameters(IOWriter ioWriter, IOReader ioReader) {
+    public ResponsiveEmployeeParametersReader(IOWriter ioWriter, IOReader ioReader) {
         this.employeeParametersMessagesWriter = new EmployeeParametersMessagesWriter(ioWriter);
         this.ioReader = ioReader;
     }

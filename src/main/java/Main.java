@@ -5,7 +5,7 @@ import models.company.CompanyParametersReader;
 import models.company.ResponsiveCompanyParametersReader;
 import models.employee.BatchEmployeeParametersReader;
 import models.employee.EmployeeParametersReader;
-import models.employee.ResponsiveEmployeeParameters;
+import models.employee.ResponsiveEmployeeParametersReader;
 import models.io.*;
 
 public class Main {
@@ -24,7 +24,7 @@ public class Main {
         IOReader ioReader = new ConsoleReader();
 
         companyParametersReader = new ResponsiveCompanyParametersReader(ioWriter, ioReader);
-        employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
+        employeeParameters = new ResponsiveEmployeeParametersReader(ioWriter, ioReader);
 
         calculate(ioWriter);
     }

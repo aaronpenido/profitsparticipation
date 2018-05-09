@@ -14,17 +14,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResponsiveEmployeeParametersTest {
+public class ResponsiveEmployeeParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
     @Mock
     private IOWriter ioWriter;
-    private ResponsiveEmployeeParameters responsiveEmployeeParameters;
+    private ResponsiveEmployeeParametersReader responsiveEmployeeParameters;
 
     @Before
     public void setUp() {
-        responsiveEmployeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
+        responsiveEmployeeParameters = new ResponsiveEmployeeParametersReader(ioWriter, ioReader);
     }
 
     @Test
