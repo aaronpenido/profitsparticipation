@@ -1,6 +1,6 @@
 import exceptions.InvalidValuesException;
 import models.calculator.ProfitParticipationCalculator;
-import models.company.BatchCompanyParameters;
+import models.company.BatchCompanyParametersReader;
 import models.company.CompanyParametersReader;
 import models.company.ResponsiveCompanyParametersReader;
 import models.employee.BatchEmployeeParameters;
@@ -33,7 +33,7 @@ public class Main {
         String filePath = "/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt";
         IOReader ioReader = new FileReader(filePath);
 
-        companyParametersReader = new BatchCompanyParameters(ioReader);
+        companyParametersReader = new BatchCompanyParametersReader(ioReader);
         employeeParameters = new BatchEmployeeParameters(ioReader);
 
         calculate(ioWriter);

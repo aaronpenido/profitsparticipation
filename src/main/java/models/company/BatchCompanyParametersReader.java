@@ -6,12 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BatchCompanyParameters implements CompanyParametersReader {
+public class BatchCompanyParametersReader implements CompanyParametersReader {
 
     private IOReader ioReader;
     private List<String> values;
 
-    public BatchCompanyParameters(IOReader ioReader) throws InvalidValuesException {
+    public BatchCompanyParametersReader(IOReader ioReader) throws InvalidValuesException {
         this.ioReader = ioReader;
         this.values = getValues();
     }
