@@ -8,18 +8,18 @@ import models.io.IOWriter;
 
 public class ResponsiveEmployeeParameters implements EmployeeParameters {
 
-    private IOWriter ioWriter;
     private IOReader ioReader;
+    private EmployeeParametersMessagesWriter employeeParametersMessagesWriter;
 
     public ResponsiveEmployeeParameters(IOWriter ioWriter, IOReader ioReader) {
-        this.ioWriter = ioWriter;
+        this.employeeParametersMessagesWriter = new EmployeeParametersMessagesWriter(ioWriter);
         this.ioReader = ioReader;
     }
 
     @Override
     public Integer readAnnualPerformanceValue() throws InvalidAnnualPerformanceValueException {
         try {
-            writeAnnualPerformanceValueMessage();
+            employeeParametersMessagesWriter.writeAnnualPerformanceValueMessage();
             return Integer.parseInt(ioReader.read());
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidAnnualPerformanceValueException();
@@ -28,16 +28,8 @@ public class ResponsiveEmployeeParameters implements EmployeeParameters {
 
     @Override
     public JobTitle readJobTitle() throws InvalidJobTitleException {
-        writeJobTitleMessage();
+        employeeParametersMessagesWriter.writeJobTitleMessage();
         return jobTitleFromString(ioReader.read());
-    }
-
-    private void writeAnnualPerformanceValueMessage() {
-        ioWriter.write("Please inform the employee's annual performance value:");
-    }
-
-    private void writeJobTitleMessage() {
-        ioWriter.write("Please inform the job title:");
     }
 
     private JobTitle jobTitleFromString(String jobTitleString) throws InvalidJobTitleException {
