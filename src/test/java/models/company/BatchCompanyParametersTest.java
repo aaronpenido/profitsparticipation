@@ -5,7 +5,6 @@ import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
 import exceptions.InvalidValuesException;
 import models.io.IOReader;
-import models.io.IOWriter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -20,15 +19,13 @@ public class BatchCompanyParametersTest {
 
     @Mock
     private IOReader ioReader;
-    @Mock
-    private IOWriter ioWriter;
     BatchCompanyParameters batchCompanyParameters;
 
     @Test
     public void throwExceptionWhenValuesAreNull() {
         when(ioReader.read()).thenReturn(null);
 
-        assertThatThrownBy(() -> new BatchCompanyParameters(ioReader, ioWriter))
+        assertThatThrownBy(() -> new BatchCompanyParameters(ioReader))
                 .isInstanceOf(InvalidValuesException.class);
     }
 
@@ -36,7 +33,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenValuesAreEmpty() {
         when(ioReader.read()).thenReturn("");
 
-        assertThatThrownBy(() -> new BatchCompanyParameters(ioReader, ioWriter))
+        assertThatThrownBy(() -> new BatchCompanyParameters(ioReader))
                 .isInstanceOf(InvalidValuesException.class);
     }
 
@@ -44,7 +41,7 @@ public class BatchCompanyParametersTest {
     public void readNumberOfEmployees() throws InvalidNumberOfEmployeesException, InvalidValuesException {
         when(ioReader.read()).thenReturn("numberOfEmployees: 100");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         Integer numberOfEmployees = batchCompanyParameters.readNumberOfEmployees();
 
@@ -55,7 +52,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenNumberOfEmployeesValueIsInvalid() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("numberOfEmployees: invalid");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readNumberOfEmployees())
                 .isInstanceOf(InvalidNumberOfEmployeesException.class);
@@ -65,7 +62,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenThereIsNoNumberOfEmployees() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("profitMarginValue: 1");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readNumberOfEmployees())
                 .isInstanceOf(InvalidNumberOfEmployeesException.class);
@@ -75,7 +72,7 @@ public class BatchCompanyParametersTest {
     public void readProfitMarginValue() throws InvalidValuesException, InvalidProfitMarginValueException {
         when(ioReader.read()).thenReturn("profitMarginValue: 10000");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         Double profitMarginValue = batchCompanyParameters.readProfitMarginValue();
 
@@ -86,7 +83,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionProfitMarginValueValueIsInvalid() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("profitMarginValue: invalid");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readProfitMarginValue())
                 .isInstanceOf(InvalidProfitMarginValueException.class);
@@ -96,7 +93,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenThereIsNoProfitMarginValue() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("numberOfEmployees: 1");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readProfitMarginValue())
                 .isInstanceOf(InvalidProfitMarginValueException.class);
@@ -106,7 +103,7 @@ public class BatchCompanyParametersTest {
     public void readAllowInternParticipation() throws InvalidValuesException, InvalidAllowInternParticipationValueException {
         when(ioReader.read()).thenReturn("allowInternParticipation: true");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         Boolean allowInternParticipationValue = batchCompanyParameters.readAllowInternParticipationValue();
 
@@ -117,7 +114,7 @@ public class BatchCompanyParametersTest {
     public void readDoesNotAllowInternParticipation() throws InvalidValuesException, InvalidAllowInternParticipationValueException {
         when(ioReader.read()).thenReturn("allowInternParticipation: false");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         Boolean allowInternParticipationValue = batchCompanyParameters.readAllowInternParticipationValue();
 
@@ -128,7 +125,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenAllowInternParticipationValueIsInvalid() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("allowInternParticipation: invalid");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readAllowInternParticipationValue())
                 .isInstanceOf(InvalidAllowInternParticipationValueException.class);
@@ -138,7 +135,7 @@ public class BatchCompanyParametersTest {
     public void throwExceptionWhenThereIsNoAllowInternParticipationValue() throws InvalidValuesException {
         when(ioReader.read()).thenReturn("numberOfEmployees: 1");
 
-        batchCompanyParameters = new BatchCompanyParameters(ioReader, ioWriter);
+        batchCompanyParameters = new BatchCompanyParameters(ioReader);
 
         assertThatThrownBy(() -> batchCompanyParameters.readAllowInternParticipationValue())
                 .isInstanceOf(InvalidAllowInternParticipationValueException.class);

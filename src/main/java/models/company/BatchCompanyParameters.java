@@ -2,8 +2,6 @@ package models.company;
 
 import exceptions.*;
 import models.io.IOReader;
-import models.io.IOWriter;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,12 +9,10 @@ import java.util.stream.Collectors;
 public class BatchCompanyParameters implements CompanyParametersReader {
 
     private IOReader ioReader;
-    private IOWriter ioWriter;
     private List<String> values;
 
-    public BatchCompanyParameters(IOReader ioReader, IOWriter ioWriter) throws InvalidValuesException {
+    public BatchCompanyParameters(IOReader ioReader) throws InvalidValuesException {
         this.ioReader = ioReader;
-        this.ioWriter = ioWriter;
         this.values = getValues();
     }
 

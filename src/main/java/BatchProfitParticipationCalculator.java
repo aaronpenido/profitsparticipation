@@ -5,10 +5,11 @@ import models.company.CompanyParametersReader;
 import models.employee.Employee;
 import models.employee.EmployeeFactory;
 import models.employee.EmployeeParameters;
+import models.employee.ResponsiveEmployeeParameters;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class BatchProfitParticipationCalculator {
+public class BatchProfitParticipationCalculator implements ProfitParticipationCalculator {
 
     IOReader ioReader;
     IOWriter ioWriter;
@@ -18,9 +19,11 @@ public class BatchProfitParticipationCalculator {
     public BatchProfitParticipationCalculator(IOReader ioReader, IOWriter ioWriter) throws InvalidValuesException {
         this.ioReader = ioReader;
         this.ioWriter = ioWriter;
-        this.companyParametersReader = new BatchCompanyParameters(ioReader, ioWriter);
+        this.companyParametersReader = new BatchCompanyParameters(ioReader);
+        this.employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
     }
 
+    @Override
     public void calculate() {
         try {
             Company company = instantiateCompanyFromInputValues();
@@ -31,6 +34,7 @@ public class BatchProfitParticipationCalculator {
             writeProfitParticipationValue(profitParticipationValue);
 
         } catch (ProfitParticipationException exception) {
+            ioWriter.writeError(exception.getMessage());
         }
     }
 
@@ -52,5 +56,6 @@ public class BatchProfitParticipationCalculator {
     }
 
     private void writeProfitParticipationValue(double profitParticipationValue) {
+        ioWriter.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
     }
 }

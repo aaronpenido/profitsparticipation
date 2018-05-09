@@ -1,18 +1,16 @@
-import models.io.ConsoleReader;
-import models.io.ConsoleWriter;
-import models.io.IOReader;
-import models.io.IOWriter;
+import exceptions.InvalidValuesException;
+import models.io.*;
 
 public class Main {
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws InvalidValuesException {
 
-        IOReader ioReader = new ConsoleReader();
+        IOReader ioReader = new FileReader("/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt");
         IOWriter ioWriter = new ConsoleWriter();
 
-        ResponsiveProfitParticipationCalculator responsiveProfitParticipationCalculator =
-                new ResponsiveProfitParticipationCalculator(ioReader, ioWriter);
+        ProfitParticipationCalculator profitParticipationCalculator =
+                new BatchProfitParticipationCalculator(ioReader, ioWriter);
 
-        responsiveProfitParticipationCalculator.calculate();
+        profitParticipationCalculator.calculate();
     }
 }

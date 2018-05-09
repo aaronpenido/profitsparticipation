@@ -9,7 +9,7 @@ import models.employee.ResponsiveEmployeeParameters;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveProfitParticipationCalculator {
+public class ResponsiveProfitParticipationCalculator implements ProfitParticipationCalculator {
 
     IOReader ioReader;
     IOWriter ioWriter;
@@ -23,6 +23,7 @@ public class ResponsiveProfitParticipationCalculator {
         employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
     }
 
+    @Override
     public void calculate() {
         try {
             Company company = instantiateCompanyFromInputValues();

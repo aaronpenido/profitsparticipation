@@ -1,0 +1,3 @@
+numberOfEmployees: 100
+profitMarginValue: 100000
+allowInternParticipation: true
