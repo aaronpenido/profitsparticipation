@@ -4,6 +4,7 @@ import exceptions.*;
 import models.io.IOReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BatchCompanyParametersReader implements CompanyParametersReader {
@@ -20,12 +21,10 @@ public class BatchCompanyParametersReader implements CompanyParametersReader {
     public Integer readNumberOfEmployees() throws InvalidNumberOfEmployeesException {
         final String key = "numberOfEmployees";
 
-        String numberOfEmployeesLine = values.stream()
-                .filter(value -> value.toUpperCase().contains(key.toUpperCase()))
-                .findFirst()
+        String numberOfEmployeesLine = getValueFromKey(key)
                 .orElseThrow(InvalidNumberOfEmployeesException::new);
         try {
-            return Integer.parseInt(numberOfEmployeesLine.replaceAll("\\D+",""));
+            return Integer.parseInt(getNumberFromString(numberOfEmployeesLine));
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidNumberOfEmployeesException();
         }
@@ -35,12 +34,10 @@ public class BatchCompanyParametersReader implements CompanyParametersReader {
     public Double readProfitMarginValue() throws InvalidProfitMarginValueException {
         final String key = "profitMarginValue";
 
-        String profitMarginValueLine = values.stream()
-                .filter(value -> value.toUpperCase().contains(key.toUpperCase()))
-                .findFirst()
+        String profitMarginValueLine = getValueFromKey(key)
                 .orElseThrow(InvalidProfitMarginValueException::new);
         try {
-            return Double.parseDouble(profitMarginValueLine.replaceAll("\\D+",""));
+            return Double.parseDouble(getNumberFromString(profitMarginValueLine));
         } catch (NumberFormatException numberFormatException) {
             throw new InvalidProfitMarginValueException();
         }
@@ -50,9 +47,7 @@ public class BatchCompanyParametersReader implements CompanyParametersReader {
     public Boolean readAllowInternParticipationValue() throws InvalidAllowInternParticipationValueException {
         final String key = "allowInternParticipation";
 
-        String allowInternParticipationValueLine = values.stream()
-                .filter(value -> value.toUpperCase().contains(key.toUpperCase()))
-                .findFirst()
+        String allowInternParticipationValueLine = getValueFromKey(key)
                 .orElseThrow(InvalidAllowInternParticipationValueException::new);
 
         if(allowInternParticipationValueLine.contains("true")) {
@@ -72,5 +67,15 @@ public class BatchCompanyParametersReader implements CompanyParametersReader {
         }
 
         return Arrays.stream(values.split("\n")).collect(Collectors.toList());
+    }
+
+    private Optional<String> getValueFromKey(String key) {
+        return values.stream()
+                .filter(value -> value.toUpperCase().contains(key.toUpperCase()))
+                .findFirst();
+    }
+
+    private String getNumberFromString(String numberOfEmployeesLine) {
+        return numberOfEmployeesLine.replaceAll("\\D+","");
     }
 }
