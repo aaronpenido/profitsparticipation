@@ -1,10 +1,12 @@
 import exceptions.*;
-import models.*;
 import models.company.Company;
 import models.company.CompanyParametersReader;
 import models.company.ResponsiveCompanyParameters;
+import models.employee.Employee;
+import models.employee.EmployeeParameters;
+import models.employee.ResponsiveEmployeeParameters;
 import models.io.ConsoleReader;
-import models.EmployeeFactory;
+import models.employee.EmployeeFactory;
 import models.io.ConsoleWriter;
 import models.io.IOReader;
 import models.io.IOWriter;

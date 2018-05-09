@@ -1,11 +1,11 @@
-package models;
+package models.employee;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import models.company.Company;
 
 public class Intern extends Employee {
 
-    Intern(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
+    public Intern(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
         super(employeeParameters);
     }
 

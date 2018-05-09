@@ -1,10 +1,8 @@
-package models;
+package models.company;
 
 import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
-import models.company.CompanyParametersReader;
-import models.company.ResponsiveCompanyParameters;
 import models.io.IOReader;
 import models.io.IOWriter;
 import org.junit.Before;

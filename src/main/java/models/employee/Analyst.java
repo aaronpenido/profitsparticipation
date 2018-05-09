@@ -1,17 +1,17 @@
-package models;
+package models.employee;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import models.company.Company;
 
-public class Manager extends Employee {
+public class Analyst extends Employee {
 
-    public Manager(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
+    public Analyst(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
         super(employeeParameters);
     }
 
     @Override
     public int jobTitleMultiplier() {
-        return 3;
+        return 2;
     }
 
     @Override

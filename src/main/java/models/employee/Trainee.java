@@ -1,4 +1,4 @@
-package models;
+package models.employee;
 
 import exceptions.InvalidAnnualPerformanceValueException;
 import models.company.Company;

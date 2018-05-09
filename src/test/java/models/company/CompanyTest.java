@@ -1,7 +1,7 @@
-package models;
+package models.company;
 
 import exceptions.InvalidAnnualPerformanceValueException;
-import models.company.Company;
+import models.employee.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

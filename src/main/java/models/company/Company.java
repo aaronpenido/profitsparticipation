@@ -1,6 +1,6 @@
 package models.company;
 
-import models.Employee;
+import models.employee.Employee;
 
 public class Company {
 
