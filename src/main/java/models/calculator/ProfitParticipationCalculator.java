@@ -12,14 +12,14 @@ public class ProfitParticipationCalculator {
 
     private IOWriter ioWriter;
     private CompanyParametersReader companyParametersReader;
-    private EmployeeParametersReader employeeParameters;
+    private EmployeeParametersReader employeeParametersReader;
 
     public ProfitParticipationCalculator(IOWriter ioWriter,
                                          CompanyParametersReader companyParametersReader,
-                                         EmployeeParametersReader employeeParameters) {
+                                         EmployeeParametersReader employeeParametersReader) {
         this.ioWriter = ioWriter;
         this.companyParametersReader = companyParametersReader;
-        this.employeeParameters = employeeParameters;
+        this.employeeParametersReader = employeeParametersReader;
     }
 
     public void calculate() {
@@ -38,7 +38,7 @@ public class ProfitParticipationCalculator {
 
     private Employee instantiateEmployeeFromInputValues() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {
 
-        EmployeeFactory employeeFactory = new EmployeeFactory(employeeParameters);
+        EmployeeFactory employeeFactory = new EmployeeFactory(employeeParametersReader);
 
         return employeeFactory.getEmployee();
     }
