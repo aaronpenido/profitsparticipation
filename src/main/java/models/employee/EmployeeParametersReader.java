@@ -4,7 +4,7 @@ import exceptions.InvalidAnnualPerformanceValueException;
 import exceptions.InvalidJobTitleException;
 import models.enums.JobTitle;
 
-public interface EmployeeParameters {
+public interface EmployeeParametersReader {
 
     Integer readAnnualPerformanceValue() throws InvalidAnnualPerformanceValueException;
     JobTitle readJobTitle() throws InvalidJobTitleException;

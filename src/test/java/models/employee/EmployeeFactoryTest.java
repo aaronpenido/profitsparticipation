@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class EmployeeFactoryTest {
 
     @Mock
-    private EmployeeParameters employeeParameters;
+    private EmployeeParametersReader employeeParameters;
 
     @Test
     public void getManager() throws InvalidJobTitleException, InvalidAnnualPerformanceValueException {

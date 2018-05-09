@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BatchEmployeeParameters implements EmployeeParameters {
+public class BatchEmployeeParameters implements EmployeeParametersReader {
 
     private IOReader ioReader;
     private List<String> values;

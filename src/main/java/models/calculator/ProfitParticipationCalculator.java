@@ -5,18 +5,18 @@ import models.company.Company;
 import models.company.CompanyParametersReader;
 import models.employee.Employee;
 import models.employee.EmployeeFactory;
-import models.employee.EmployeeParameters;
+import models.employee.EmployeeParametersReader;
 import models.io.IOWriter;
 
 public class ProfitParticipationCalculator {
 
     private IOWriter ioWriter;
     private CompanyParametersReader companyParametersReader;
-    private EmployeeParameters employeeParameters;
+    private EmployeeParametersReader employeeParameters;
 
     public ProfitParticipationCalculator(IOWriter ioWriter,
                                          CompanyParametersReader companyParametersReader,
-                                         EmployeeParameters employeeParameters) {
+                                         EmployeeParametersReader employeeParameters) {
         this.ioWriter = ioWriter;
         this.companyParametersReader = companyParametersReader;
         this.employeeParameters = employeeParameters;

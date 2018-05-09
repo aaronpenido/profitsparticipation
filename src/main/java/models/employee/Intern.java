@@ -5,8 +5,8 @@ import models.company.Company;
 
 public class Intern extends Employee {
 
-    public Intern(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
-        super(employeeParameters);
+    public Intern(EmployeeParametersReader employeeParametersReader) throws InvalidAnnualPerformanceValueException {
+        super(employeeParametersReader);
     }
 
     @Override

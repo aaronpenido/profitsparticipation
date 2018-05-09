@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 public class CompanyTest {
 
     @Mock
-    private EmployeeParameters employeeParameters;
+    private EmployeeParametersReader employeeParametersReader;
 
     @Test
     public void profitParticipationValueIsEqualsToZeroWhenProfitMarginIsLessThanTenThousandTimesEmployeesNumber() {
@@ -57,8 +57,8 @@ public class CompanyTest {
 
         final Company company = new Company(numberOfEmployees, profitMargin, isInternAllowedToParticipate);
 
-        when(employeeParameters.readAnnualPerformanceValue()).thenReturn(1);
-        final Employee employee = new Trainee(employeeParameters);
+        when(employeeParametersReader.readAnnualPerformanceValue()).thenReturn(1);
+        final Employee employee = new Trainee(employeeParametersReader);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -75,8 +75,8 @@ public class CompanyTest {
 
         final Company company = new Company(numberOfEmployees, profitMargin, isInternAllowedToParticipate);
 
-        when(employeeParameters.readAnnualPerformanceValue()).thenReturn(1);
-        final Employee employee = new Trainee(employeeParameters);
+        when(employeeParametersReader.readAnnualPerformanceValue()).thenReturn(1);
+        final Employee employee = new Trainee(employeeParametersReader);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -93,8 +93,8 @@ public class CompanyTest {
 
         final Company company = new Company(numberOfEmployees, profitMargin, isInternAllowedToParticipate);
 
-        when(employeeParameters.readAnnualPerformanceValue()).thenReturn(1);
-        final Employee employee = new Analyst(employeeParameters);
+        when(employeeParametersReader.readAnnualPerformanceValue()).thenReturn(1);
+        final Employee employee = new Analyst(employeeParametersReader);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
         assertThat(profitParticipationValue).isEqualTo(expectedEmployeesProfitParticipationValue);
@@ -111,8 +111,8 @@ public class CompanyTest {
 
         final Company company = new Company(numberOfEmployees, profitMargin, isInternAllowedToParticipate);
 
-        when(employeeParameters.readAnnualPerformanceValue()).thenReturn(1);
-        final Employee employee = new Manager(employeeParameters);
+        when(employeeParametersReader.readAnnualPerformanceValue()).thenReturn(1);
+        final Employee employee = new Manager(employeeParametersReader);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
@@ -130,8 +130,8 @@ public class CompanyTest {
 
         final Company company = new Company(numberOfEmployees, profitMargin, isInternAllowedToParticipate);
 
-        when(employeeParameters.readAnnualPerformanceValue()).thenReturn(1);
-        final Employee employee = new Intern(employeeParameters);
+        when(employeeParametersReader.readAnnualPerformanceValue()).thenReturn(1);
+        final Employee employee = new Intern(employeeParametersReader);
 
         double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 

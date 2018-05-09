@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class EmployeeTest {
 
     @Mock
-    private EmployeeParameters employeeParameters;
+    private EmployeeParametersReader employeeParameters;
 
     @Test
     public void throwInvalidAnnualPerformanceValueExceptionWhenInformedValueLowerThanOne() throws InvalidAnnualPerformanceValueException {

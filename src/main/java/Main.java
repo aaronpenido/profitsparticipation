@@ -4,14 +4,14 @@ import models.company.BatchCompanyParameters;
 import models.company.CompanyParametersReader;
 import models.company.ResponsiveCompanyParameters;
 import models.employee.BatchEmployeeParameters;
-import models.employee.EmployeeParameters;
+import models.employee.EmployeeParametersReader;
 import models.employee.ResponsiveEmployeeParameters;
 import models.io.*;
 
 public class Main {
 
     private static CompanyParametersReader companyParametersReader;
-    private static EmployeeParameters employeeParameters;
+    private static EmployeeParametersReader employeeParameters;
 
     public static void main(String[] args) throws InvalidValuesException {
         IOWriter ioWriter = new ConsoleWriter();

@@ -7,8 +7,8 @@ public abstract class Employee {
 
     private int annualPerformanceValue;
 
-    Employee(EmployeeParameters employeeParameters) throws InvalidAnnualPerformanceValueException {
-        this.annualPerformanceValue = employeeParameters.readAnnualPerformanceValue();
+    Employee(EmployeeParametersReader employeeParametersReader) throws InvalidAnnualPerformanceValueException {
+        this.annualPerformanceValue = employeeParametersReader.readAnnualPerformanceValue();
         throwInvalidAnnualPerformanceValueExceptionIfValueRangeIsInvalid();
     }
 

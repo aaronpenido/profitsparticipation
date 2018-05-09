@@ -6,9 +6,9 @@ import models.enums.JobTitle;
 
 public class EmployeeFactory {
 
-    private EmployeeParameters employeeParameters;
+    private EmployeeParametersReader employeeParameters;
 
-    public EmployeeFactory(EmployeeParameters employeeParameters) {
+    public EmployeeFactory(EmployeeParametersReader employeeParameters) {
         this.employeeParameters = employeeParameters;
     }
 

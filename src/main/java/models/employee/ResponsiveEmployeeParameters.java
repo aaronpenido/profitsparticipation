@@ -6,7 +6,7 @@ import models.enums.JobTitle;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveEmployeeParameters implements EmployeeParameters {
+public class ResponsiveEmployeeParameters implements EmployeeParametersReader {
 
     private IOReader ioReader;
     private EmployeeParametersMessagesWriter employeeParametersMessagesWriter;
