@@ -4,9 +4,24 @@ import models.io.*;
 public class Main {
 
     public static void main(String[] args) throws InvalidValuesException {
-
-        IOReader ioReader = new FileReader("/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt");
         IOWriter ioWriter = new ConsoleWriter();
+
+        calculateFromConsole(ioWriter);
+        calculateFromFile(ioWriter);
+    }
+
+    private static void calculateFromConsole(IOWriter ioWriter) {
+        IOReader ioReader = new ConsoleReader();
+
+        ProfitParticipationCalculator profitParticipationCalculator =
+                new ResponsiveProfitParticipationCalculator(ioReader, ioWriter);
+
+        profitParticipationCalculator.calculate();
+    }
+
+    private static void calculateFromFile(IOWriter ioWriter) throws InvalidValuesException {
+        String filePath = "/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt";
+        IOReader ioReader = new FileReader(filePath);
 
         ProfitParticipationCalculator profitParticipationCalculator =
                 new BatchProfitParticipationCalculator(ioReader, ioWriter);
