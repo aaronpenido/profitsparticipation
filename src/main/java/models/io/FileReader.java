@@ -22,7 +22,7 @@ public class FileReader implements IOReader {
             StringBuilder data = new StringBuilder();
             Stream<String> lines = Files.lines(path);
 
-            lines.forEach(line -> data.append(line));
+            lines.forEach(line -> data.append(line).append("\n"));
             lines.close();
 
             return data.toString();

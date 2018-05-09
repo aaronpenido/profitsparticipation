@@ -1,3 +1,5 @@
-numberOfEmployees: 100
-profitMarginValue: 100000
+numberOfEmployees: 10
+profitMarginValue: 1000000
 allowInternParticipation: true
+jobTitle: Manager
+annualPerformanceValue: 1

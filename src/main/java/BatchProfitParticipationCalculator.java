@@ -2,10 +2,7 @@ import exceptions.*;
 import models.company.BatchCompanyParameters;
 import models.company.Company;
 import models.company.CompanyParametersReader;
-import models.employee.Employee;
-import models.employee.EmployeeFactory;
-import models.employee.EmployeeParameters;
-import models.employee.ResponsiveEmployeeParameters;
+import models.employee.*;
 import models.io.IOReader;
 import models.io.IOWriter;
 
@@ -20,7 +17,7 @@ public class BatchProfitParticipationCalculator implements ProfitParticipationCa
         this.ioReader = ioReader;
         this.ioWriter = ioWriter;
         this.companyParametersReader = new BatchCompanyParameters(ioReader);
-        this.employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
+        this.employeeParameters = new BatchEmployeeParameters(ioReader);
     }
 
     @Override
