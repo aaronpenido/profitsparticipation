@@ -24,7 +24,7 @@ public class ProfitParticipationCalculator {
 
     public void calculate() {
         try {
-            Company company = instantiateCompanyFromInputValues();
+            Company company = new Company(companyParametersReader);
             Employee employee = instantiateEmployeeFromInputValues();
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
@@ -41,16 +41,6 @@ public class ProfitParticipationCalculator {
         EmployeeFactory employeeFactory = new EmployeeFactory(employeeParameters);
 
         return employeeFactory.getEmployee();
-    }
-
-    private Company instantiateCompanyFromInputValues() throws InvalidNumberOfEmployeesException,
-            InvalidProfitMarginValueException, InvalidAllowInternParticipationValueException {
-
-        Integer numberOfEmployees = companyParametersReader.readNumberOfEmployees();
-        Double profitMarginValue = companyParametersReader.readProfitMarginValue();
-        Boolean isInternAllowedToParticipate = companyParametersReader.readAllowInternParticipationValue();
-
-        return new Company(numberOfEmployees, profitMarginValue, isInternAllowedToParticipate);
     }
 
     private void writeProfitParticipationValue(double profitParticipationValue) {

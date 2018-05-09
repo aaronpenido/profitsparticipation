@@ -1,5 +1,8 @@
 package models.company;
 
+import exceptions.InvalidAllowInternParticipationValueException;
+import exceptions.InvalidNumberOfEmployeesException;
+import exceptions.InvalidProfitMarginValueException;
 import models.employee.Employee;
 
 public class Company {
@@ -8,10 +11,11 @@ public class Company {
     private Double profitMarginValue;
     private Boolean isInternAllowedToParticipate;
 
-    public Company(Integer numberOfEmployees, Double profitMarginValue, Boolean isInternAllowedToParticipate) {
-        this.numberOfEmployees = numberOfEmployees;
-        this.profitMarginValue = profitMarginValue;
-        this.isInternAllowedToParticipate = isInternAllowedToParticipate;
+    public Company(CompanyParametersReader companyParametersReader) throws InvalidNumberOfEmployeesException,
+            InvalidProfitMarginValueException, InvalidAllowInternParticipationValueException {
+        this.numberOfEmployees = companyParametersReader.readNumberOfEmployees();
+        this.profitMarginValue = companyParametersReader.readProfitMarginValue();
+        this.isInternAllowedToParticipate = companyParametersReader.readAllowInternParticipationValue();
     }
 
     public double calculateProfitParticipationValue(Employee employee) {
