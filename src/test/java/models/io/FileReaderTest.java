@@ -20,6 +20,6 @@ public class FileReaderTest {
 
         String value = fileReader.read();
 
-        assertThat(value).isEqualTo("test");
+        assertThat(value).contains("test");
     }
 }

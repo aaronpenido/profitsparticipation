@@ -1,23 +1,29 @@
+package models.calculator;
+
 import exceptions.*;
-import models.company.BatchCompanyParameters;
+import models.calculator.ProfitParticipationCalculator;
 import models.company.Company;
 import models.company.CompanyParametersReader;
-import models.employee.*;
+import models.company.ResponsiveCompanyParameters;
+import models.employee.Employee;
+import models.employee.EmployeeFactory;
+import models.employee.EmployeeParameters;
+import models.employee.ResponsiveEmployeeParameters;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class BatchProfitParticipationCalculator implements ProfitParticipationCalculator {
+public class ResponsiveProfitParticipationCalculator implements ProfitParticipationCalculator {
 
     IOReader ioReader;
     IOWriter ioWriter;
     CompanyParametersReader companyParametersReader;
     EmployeeParameters employeeParameters;
 
-    public BatchProfitParticipationCalculator(IOReader ioReader, IOWriter ioWriter) throws InvalidValuesException {
+    public ResponsiveProfitParticipationCalculator(IOReader ioReader, IOWriter ioWriter) {
         this.ioReader = ioReader;
         this.ioWriter = ioWriter;
-        this.companyParametersReader = new BatchCompanyParameters(ioReader);
-        this.employeeParameters = new BatchEmployeeParameters(ioReader);
+        companyParametersReader = new ResponsiveCompanyParameters(ioWriter, ioReader);
+        employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
     }
 
     @Override
@@ -28,10 +34,10 @@ public class BatchProfitParticipationCalculator implements ProfitParticipationCa
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
-            writeProfitParticipationValue(profitParticipationValue);
+            writeProfitParticipationValue(ioWriter, profitParticipationValue);
 
         } catch (ProfitParticipationException exception) {
-            ioWriter.writeError(exception.getMessage());
+            writeErrorFromProfitParticipationException(ioWriter, exception);
         }
     }
 
@@ -52,7 +58,11 @@ public class BatchProfitParticipationCalculator implements ProfitParticipationCa
         return new Company(numberOfEmployees, profitMarginValue, isInternAllowedToParticipate);
     }
 
-    private void writeProfitParticipationValue(double profitParticipationValue) {
+    private void writeProfitParticipationValue(IOWriter ioWriter, double profitParticipationValue) {
         ioWriter.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
+    }
+
+    private void writeErrorFromProfitParticipationException(IOWriter ioWriter, ProfitParticipationException profitParticipationException) {
+        ioWriter.writeError(profitParticipationException.getMessage());
     }
 }

@@ -1,26 +1,25 @@
+package models.calculator;
+
 import exceptions.*;
+import models.company.BatchCompanyParameters;
 import models.company.Company;
 import models.company.CompanyParametersReader;
-import models.company.ResponsiveCompanyParameters;
-import models.employee.Employee;
-import models.employee.EmployeeFactory;
-import models.employee.EmployeeParameters;
-import models.employee.ResponsiveEmployeeParameters;
+import models.employee.*;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveProfitParticipationCalculator implements ProfitParticipationCalculator {
+public class BatchProfitParticipationCalculator implements ProfitParticipationCalculator {
 
     IOReader ioReader;
     IOWriter ioWriter;
     CompanyParametersReader companyParametersReader;
     EmployeeParameters employeeParameters;
 
-    public ResponsiveProfitParticipationCalculator(IOReader ioReader, IOWriter ioWriter) {
+    public BatchProfitParticipationCalculator(IOReader ioReader, IOWriter ioWriter) throws InvalidValuesException {
         this.ioReader = ioReader;
         this.ioWriter = ioWriter;
-        companyParametersReader = new ResponsiveCompanyParameters(ioWriter, ioReader);
-        employeeParameters = new ResponsiveEmployeeParameters(ioWriter, ioReader);
+        this.companyParametersReader = new BatchCompanyParameters(ioReader);
+        this.employeeParameters = new BatchEmployeeParameters(ioReader);
     }
 
     @Override
@@ -31,10 +30,10 @@ public class ResponsiveProfitParticipationCalculator implements ProfitParticipat
 
             double profitParticipationValue = company.calculateProfitParticipationValue(employee);
 
-            writeProfitParticipationValue(ioWriter, profitParticipationValue);
+            writeProfitParticipationValue(profitParticipationValue);
 
         } catch (ProfitParticipationException exception) {
-            writeErrorFromProfitParticipationException(ioWriter, exception);
+            ioWriter.writeError(exception.getMessage());
         }
     }
 
@@ -55,11 +54,7 @@ public class ResponsiveProfitParticipationCalculator implements ProfitParticipat
         return new Company(numberOfEmployees, profitMarginValue, isInternAllowedToParticipate);
     }
 
-    private void writeProfitParticipationValue(IOWriter ioWriter, double profitParticipationValue) {
+    private void writeProfitParticipationValue(double profitParticipationValue) {
         ioWriter.write(String.format("The profit participation value is: %.2f", profitParticipationValue));
-    }
-
-    private void writeErrorFromProfitParticipationException(IOWriter ioWriter, ProfitParticipationException profitParticipationException) {
-        ioWriter.writeError(profitParticipationException.getMessage());
     }
 }
