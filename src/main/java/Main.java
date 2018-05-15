@@ -12,6 +12,7 @@ public class Main {
 
     private static CompanyParametersReader companyParametersReader;
     private static EmployeeParametersReader employeeParameters;
+    private static IOReader ioReader;
 
     public static void main(String[] args) throws InvalidValuesException {
         IOWriter ioWriter = new ConsoleWriter();
@@ -21,7 +22,7 @@ public class Main {
     }
 
     private static void calculateFromConsole(IOWriter ioWriter) {
-        IOReader ioReader = new ConsoleReader();
+        ioReader = new ConsoleReader();
 
         companyParametersReader = new ResponsiveCompanyParametersReader(ioWriter, ioReader);
         employeeParameters = new ResponsiveEmployeeParametersReader(ioWriter, ioReader);
@@ -31,7 +32,7 @@ public class Main {
 
     private static void calculateFromFile(IOWriter ioWriter) throws InvalidValuesException {
         String filePath = "/Users/apenido/IdeaProjects/profitsparticipation/src/main/resources/ProfitParticipationValues.txt";
-        IOReader ioReader = new FileReader(filePath);
+        ioReader = new FileReader(filePath);
 
         companyParametersReader = new BatchCompanyParametersReader(ioReader);
         employeeParameters = new BatchEmployeeParametersReader(ioReader);
