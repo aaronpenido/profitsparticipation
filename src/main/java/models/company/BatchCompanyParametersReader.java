@@ -1,7 +1,7 @@
 package models.company;
 
 import exceptions.*;
-import models.BooleanValue;
+import models.enums.BooleanValue;
 import models.io.IOReader;
 import java.util.Arrays;
 import java.util.List;

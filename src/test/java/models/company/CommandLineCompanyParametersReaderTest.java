@@ -16,17 +16,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResponsiveCompanyParametersReaderTest {
+public class CommandLineCompanyParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
     @Mock
     private IOWriter ioWriter;
+
     private CompanyParametersReader companyParametersReader;
 
     @Before
     public void setUp() {
-        companyParametersReader = new ResponsiveCompanyParametersReader(ioWriter, ioReader);
+        companyParametersReader = new CommandLineCompanyParametersReader(ioWriter, ioReader);
     }
 
     @Test

@@ -14,17 +14,19 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ResponsiveEmployeeParametersReaderTest {
+public class CommandLineEmployeeParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
+
     @Mock
     private IOWriter ioWriter;
-    private ResponsiveEmployeeParametersReader responsiveEmployeeParameters;
+
+    private EmployeeParametersReader employeeParametersReader;
 
     @Before
     public void setUp() {
-        responsiveEmployeeParameters = new ResponsiveEmployeeParametersReader(ioWriter, ioReader);
+        employeeParametersReader = new CommandLineEmployeeParametersReader(ioWriter, ioReader);
     }
 
     @Test
@@ -32,7 +34,7 @@ public class ResponsiveEmployeeParametersReaderTest {
 
         when(ioReader.read()).thenReturn("invalidAnnualPerformanceValue");
 
-        assertThatThrownBy(() -> responsiveEmployeeParameters.readAnnualPerformanceValue())
+        assertThatThrownBy(() -> employeeParametersReader.readAnnualPerformanceValue())
                 .isInstanceOf(InvalidAnnualPerformanceValueException.class);
     }
 
@@ -41,7 +43,7 @@ public class ResponsiveEmployeeParametersReaderTest {
 
         when(ioReader.read()).thenReturn("invalidJobTitle");
 
-        assertThatThrownBy(() -> responsiveEmployeeParameters.readJobTitle())
+        assertThatThrownBy(() -> employeeParametersReader.readJobTitle())
                 .isInstanceOf(InvalidJobTitleException.class);
     }
 }

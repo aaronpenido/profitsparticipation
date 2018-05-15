@@ -1,6 +1,6 @@
 package models.company;
 
-import models.BooleanValue;
+import models.enums.BooleanValue;
 import models.io.IOWriter;
 
 public class CompanyParametersMessagesWriter {

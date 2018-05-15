@@ -1,20 +1,19 @@
 package models.company;
 
-import com.sun.javafx.css.converters.BooleanConverter;
 import exceptions.InvalidAllowInternParticipationValueException;
 import exceptions.InvalidBooleanValueException;
 import exceptions.InvalidNumberOfEmployeesException;
 import exceptions.InvalidProfitMarginValueException;
-import models.BooleanValue;
+import models.enums.BooleanValue;
 import models.io.IOReader;
 import models.io.IOWriter;
 
-public class ResponsiveCompanyParametersReader implements CompanyParametersReader {
+public class CommandLineCompanyParametersReader implements CompanyParametersReader {
 
     private IOReader ioReader;
     private CompanyParametersMessagesWriter companyParametersMessagesWriter;
 
-    public ResponsiveCompanyParametersReader(IOWriter ioWriter, IOReader ioReader) {
+    public CommandLineCompanyParametersReader(IOWriter ioWriter, IOReader ioReader) {
         this.companyParametersMessagesWriter = new CompanyParametersMessagesWriter(ioWriter);
         this.ioReader = ioReader;
     }

@@ -19,6 +19,7 @@ public class BatchCompanyParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
+
     BatchCompanyParametersReader batchCompanyParametersReader;
 
     @Test

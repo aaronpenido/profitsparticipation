@@ -2,10 +2,10 @@ import exceptions.InvalidValuesException;
 import models.calculator.ProfitParticipationCalculator;
 import models.company.BatchCompanyParametersReader;
 import models.company.CompanyParametersReader;
-import models.company.ResponsiveCompanyParametersReader;
+import models.company.CommandLineCompanyParametersReader;
 import models.employee.BatchEmployeeParametersReader;
 import models.employee.EmployeeParametersReader;
-import models.employee.ResponsiveEmployeeParametersReader;
+import models.employee.CommandLineEmployeeParametersReader;
 import models.io.*;
 
 public class Main {
@@ -24,8 +24,8 @@ public class Main {
     private static void calculateFromConsole(IOWriter ioWriter) {
         ioReader = new ConsoleReader();
 
-        companyParametersReader = new ResponsiveCompanyParametersReader(ioWriter, ioReader);
-        employeeParameters = new ResponsiveEmployeeParametersReader(ioWriter, ioReader);
+        companyParametersReader = new CommandLineCompanyParametersReader(ioWriter, ioReader);
+        employeeParameters = new CommandLineEmployeeParametersReader(ioWriter, ioReader);
 
         calculate(ioWriter);
     }

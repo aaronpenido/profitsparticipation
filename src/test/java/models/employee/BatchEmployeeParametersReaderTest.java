@@ -20,6 +20,7 @@ public class BatchEmployeeParametersReaderTest {
 
     @Mock
     private IOReader ioReader;
+
     private BatchEmployeeParametersReader batchEmployeeParametersReader;
 
     @Test

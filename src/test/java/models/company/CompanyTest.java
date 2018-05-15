@@ -19,6 +19,7 @@ public class CompanyTest {
 
     @Mock
     private EmployeeParametersReader employeeParametersReader;
+
     @Mock
     CompanyParametersReader companyParametersReader;
 
